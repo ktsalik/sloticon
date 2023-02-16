@@ -9,14 +9,14 @@
   .brand {
 
     .logo {
-      color: #FF9900;
+      color: $primary-color;
     }
 
     .name {
       margin-left: 5px;
       font-weight: bold;
       font-size: 22px;
-      color: #FF9900;
+      color: $primary-color;
     }
   }
 
@@ -61,6 +61,16 @@
       &:hover {
         transform: rotate(30deg);
       }
+    }
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .Header {
+    flex-direction: column;
+
+    .menu {
+      margin-top: 20px;
     }
   }
 }
