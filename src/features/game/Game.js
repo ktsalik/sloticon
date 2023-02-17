@@ -1,13 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import './Game.scss';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { SocketContext } from '../../context/socket';
 import * as PIXI from 'pixi.js';
 import Reel from '../../slot/Reel';
 window.PIXI = PIXI;
 const Game = (props) => {
   const elRef = useRef(null);
   const params = useParams();
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
     let view;
@@ -17,9 +19,10 @@ const Game = (props) => {
         const gameId = arguments[0];
         const PIXI = arguments[1];
         const Reel = arguments[2];
+        const socket = arguments[3];
 
         ${response.data}
-      `))(params.gameId, PIXI, Reel);
+      `))(params.gameId, PIXI, Reel, socket);
       
       const gameCanvas = elRef.current.querySelector('canvas');
       

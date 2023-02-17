@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {SocketContext, socket} from './context/socket';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   //   <App />
   // </React.StrictMode>
-  <App />
+  <SocketContext.Provider value={socket}>
+    <App />
+  </SocketContext.Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
