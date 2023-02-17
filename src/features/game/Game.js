@@ -31,11 +31,7 @@ const Game = (props) => {
     });
 
     return () => {
-      const gameCanvas = elRef.current.querySelector('canvas');
-
-      if (gameCanvas) {
-        gameCanvas.remove();
-      }
+      
     };
   }, []);
 
