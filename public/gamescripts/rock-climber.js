@@ -4,7 +4,7 @@ const app = new PIXI.Application({
 });
 
 const spinTime = 550;
-const spinTimeBetweenReels = 200;
+const spinTimeBetweenReels = 220;
 
 const Assets = PIXI.Assets;
 
