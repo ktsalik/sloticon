@@ -152,7 +152,7 @@ function init() {
       spinValues,
       stopValues,
       speed: 0.17,
-      bounceDepthPerc: 0.25,
+      bounceDepthPerc: 0.2,
       bounceDuration: 350,
       symbolMargin: 13,
     });
@@ -186,7 +186,7 @@ function init() {
         if (reel.rollingTime > reelStopTime) {
           reel.stop();
           reel.onceStop(function() {
-            reel._stopped = true;
+            reel.stoppedAutomatically = true;
           });
         } else {
           reel.rollingTime += delta * 16.667;
@@ -206,7 +206,7 @@ function init() {
 
       if (reelsActive) {
         reels.forEach((r, i) => {
-          if ((r.rolling == true || r.stopping < r.positions + 1) && !r._stopped) {
+          if ((r.rolling == true || r.stopping < r.positions + 1) && !(r.forceStopped || r.stoppedAutomatically)) {
             const stopValues = [];
             for (let k = 0; k < 4; k++) {
               stopValues.push(parseInt(Math.random() * 8) + 1);
@@ -214,27 +214,19 @@ function init() {
             r.stopValues = stopValues;
             r.values = r.stopValues.slice();
             r.offset = 0;
-            r.bounceDepthPerc = 0.3;
-            r.bounceDuration = 450;
+            r.bounceDepthPerc = 0.25;
+            r.bounceDuration = 500;
             r.stopping = r.positions + 1;
-            r._stopped = true;
+            r.forceStopped = true;
           }
         });
-      } else {
-        const reelsStopPromises = [];
-        
+      } else {        
         reels.forEach((r) => {
-          r.bounceDepthPerc = 0.25;
+          r.bounceDepthPerc = 0.2;
+          r.bounceDuration = 350;
+          r.stoppedAutomatically = false;
+          r.forceStopped = false;
           r.roll();
-          reelsStopPromises.push(new Promise((resolve) => {
-            r.onceStop(resolve);
-          }));
-        });
-
-        Promise.all(reelsStopPromises).then(() => {
-          reels.forEach((reel) => {
-            reel._stopped = false;
-          });
         });
       }
     }
