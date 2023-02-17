@@ -153,7 +153,7 @@ function init() {
       stopValues,
       speed: 0.17,
       bounceDepthPerc: 0.25,
-      bounceDuration: 300,
+      bounceDuration: 350,
       symbolMargin: 13,
     });
     reel.container.z = 3;
@@ -214,7 +214,7 @@ function init() {
             r.stopValues = stopValues;
             r.values = r.stopValues.slice();
             r.offset = 0;
-            r.bounceDepthPerc = 0.35;
+            r.bounceDepthPerc = 0.3;
             r.bounceDuration = 450;
             r.stopping = r.positions + 1;
             r._stopped = true;
