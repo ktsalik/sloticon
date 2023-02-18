@@ -4,7 +4,7 @@ const app = new PIXI.Application({
 });
 
 const spinTime = 550;
-const spinTimeBetweenReels = 220;
+const spinTimeBetweenReels = 200;
 
 const Assets = PIXI.Assets;
 
@@ -214,16 +214,12 @@ function init() {
             r.stopValues = stopValues;
             r.values = r.stopValues.slice();
             r.offset = 0;
-            r.bounceDepthPerc = 0.25;
-            r.bounceDuration = 500;
             r.stopping = r.positions + 1;
             r.forceStopped = true;
           }
         });
       } else {        
         reels.forEach((r) => {
-          r.bounceDepthPerc = 0.2;
-          r.bounceDuration = 350;
           r.stoppedAutomatically = false;
           r.forceStopped = false;
           r.roll();

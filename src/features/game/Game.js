@@ -5,11 +5,15 @@ import axios from 'axios';
 import { SocketContext } from '../../context/socket';
 import * as PIXI from 'pixi.js';
 import Reel from '../../slot/Reel';
-window.PIXI = PIXI;
+import { useSelector } from 'react-redux';
+
 const Game = (props) => {
   const elRef = useRef(null);
   const params = useParams();
   const socket = useContext(SocketContext);
+
+  const balance = useSelector((state) => state.lobby.balance);
+  console.log(balance);
 
   useEffect(() => {
     let view;
