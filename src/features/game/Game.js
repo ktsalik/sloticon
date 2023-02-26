@@ -13,7 +13,6 @@ const Game = (props) => {
   const socket = useContext(SocketContext);
 
   const balance = useSelector((state) => state.lobby.balance);
-  console.log(balance);
 
   useEffect(() => {
     let view;

@@ -25,6 +25,7 @@ const Reel = function({
   this.stopping = false;
   this.symbolMargin = symbolMargin;
   this.speed = speed;
+  this.accelerating = false;
   this.bounceDepthPerc = bounceDepthPerc;
   this.bounceDuration = bounceDuration;
   this.stopFns = [];
@@ -53,7 +54,7 @@ Reel.prototype.render = function() {
     var symbol = _this.symbols[i];
     symbol.y = ((symbol.height + this.symbolMargin) * (i - 1)) + (0 + _this.offset);
     if (_this.values[i]) {
-      if (this.rolling) {
+      if (this.rolling && !this.accelerating) {
         symbol.texture = PIXI.Texture.from('symbol-' + _this.values[i] + '-blurred');
       } else {
         symbol.texture = PIXI.Texture.from('symbol-' + _this.values[i]);
@@ -120,6 +121,19 @@ Reel.prototype.roll = function() {
     this._spinValues = this.spinValues.slice();
     this._stopValues = this.stopValues.slice();
     this.rolling = true;
+
+    const speedSet = this.speed;
+    this.speed = 0;
+    this.accelerating = true;
+    anime({
+      targets: this,
+      speed: speedSet,
+      duration: 200,
+      easing: 'linear',
+      complete: () => {
+        this.accelerating = false;
+      },
+    });
   }
 };
 

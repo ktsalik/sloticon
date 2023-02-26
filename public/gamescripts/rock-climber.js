@@ -22,6 +22,10 @@ const assetsManifest = {
           name: 'reels-background',
           srcs: `${assetsUrl}main_game/screen.png`,
         },
+        {
+          name: 'spin-icon',
+          srcs: `/data/spin-icon.png`,
+        }
       ],
     },
     {
@@ -114,20 +118,35 @@ Promise.all([uiAssetsLoadPromise, symbolsAssetsLoadPromise]).then(() => {
 const reels = [];
 
 function init() {
+  const controls = new PIXI.Container();
+  controls.z = 10;
+  app.stage.addChild(controls);
+
+  const btnPlay = PIXI.Sprite.from('spin-icon');
+  btnPlay.scale.x = 0.1;
+  btnPlay.scale.y = 0.1;
+  btnPlay.x = 950 - btnPlay.width;
+  controls.addChild(btnPlay);
+
+  const btnPlayCircle  = new PIXI.Graphics();
+  btnPlayCircle.lineStyle(20, 0xFFFFFF, 1);
+  btnPlayCircle.drawEllipse(485, 410, 550, 550);
+  btnPlay.addChild(btnPlayCircle);
+
+  PIXI.Ticker.shared.add(() => {
+    controls.y = ((800 - 240) * app.renderer.view.height) / 800;
+  });
+
   const background = PIXI.Sprite.from('background');
   background.x = 0;
   background.y = 0;
   background.z = 2;
-  background.scale.x = app.renderer.view.width / 1280;
-  background.scale.y = app.renderer.view.height / 800;
   app.stage.addChild(background);
 
   const reelsBackground = PIXI.Sprite.from('reels-background');
   reelsBackground.x = 0;
   reelsBackground.y = 0;
   reelsBackground.z = 1;
-  reelsBackground.scale.x = app.renderer.view.width / 1280;
-  reelsBackground.scale.y = app.renderer.view.height / 800;
   app.stage.addChild(reelsBackground);
 
   for (let i = 0; i < 5; i++) {
@@ -151,17 +170,13 @@ function init() {
       values,
       spinValues,
       stopValues,
-      speed: 0.17,
+      speed: 0.18,
       bounceDepthPerc: 0.2,
       bounceDuration: 350,
       symbolMargin: 13,
     });
     reel.container.z = 3;
     reel.mask.z = 4;
-    reel.container.scale.x = app.renderer.view.width / 1280;
-    reel.container.scale.y = app.renderer.view.height / 800;
-    reel.mask.scale.x = app.renderer.view.width / 1280;
-    reel.mask.scale.y = app.renderer.view.height / 800;
     PIXI.Ticker.shared.add(() => {
       reel.container.x = ((245 + (i * 144) + (i * 15)) * app.renderer.view.width) / 1280;
       reel.container.y = (101 * app.renderer.view.height) / 800;
@@ -238,9 +253,10 @@ function init() {
 
   function resize() {
     const gameRatio = 1280 / 800;
+    const windowRatio = window.innerWidth / window.innerHeight;
     let width, height;
 
-    if (window.innerWidth < window.innerHeight) {
+    if (windowRatio < gameRatio) {
       width = window.innerWidth;
       height = width / gameRatio;
     } else {
