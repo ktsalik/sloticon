@@ -12,9 +12,8 @@ const Reel = function({
 }) {
   this.positions = positions;
   this.values = [];
-  this._spinValues = spinValues;
-  this.spinValues = spinValues;
-  this._stopValues = [];
+  this._spinValues = spinValues.slice();
+  this.spinValues = spinValues.slice();
   this.stopValues = [];
   this.symbols = [];
   this.container = new PIXI.Container();
@@ -71,7 +70,7 @@ Reel.prototype.render = function() {
     if (this.offset >= this.symbols[0].height) {
       this.offset = 0;
       if (!isNaN(parseInt(this.stopping))) {
-        this.values.unshift(this._stopValues.pop());
+        this.values.unshift(this.stopValues.pop());
         this.stopping++;
       } else {
         this.values.unshift(this._spinValues.pop());
@@ -119,7 +118,6 @@ Reel.prototype.render = function() {
 
 Reel.prototype.roll = function() {
   if (!this.rolling && this.stopping === false) {
-    this._stopValues = this.stopValues.slice();
     this.rolling = true;
 
     for (let i = 0; i < this.startFns.length; i++) {

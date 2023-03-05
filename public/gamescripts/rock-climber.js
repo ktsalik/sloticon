@@ -1,3 +1,5 @@
+const key = localStorage.getItem('key');
+
 const renderer = new PIXI.autoDetectRenderer({
   width: window.innerWidth,
   height: window.innerHeight,
@@ -12,6 +14,7 @@ PIXI.Ticker.shared.add(() => {
 let bet = 1;
 let coinValue = 0.01;
 let balance = 0;
+let betResponse = false;
 
 const symbolsCount = 8;
 const spinTime = 350;
@@ -157,16 +160,28 @@ reels.onStopCommand = (fn) => reels.onStopCommandFns.push(fn);
 
 function play() {
   if (reels.active) {
-    reels.onStopCommandFns.forEach((fn) => fn());
+    if (betResponse) {
+      reels.onStopCommandFns.forEach((fn) => fn());
 
-    reels.forEach((r, i) => {
-      if ((r.rolling == true || r.stopping < r.positions + 1) && !(r.forceStopped || r.stoppedAutomatically)) {
-        r.offset = 0;
-        r.stopping = r.positions + 1;
-        r.forceStopped = true;
-      }
-    });
+      reels.forEach((r, i) => {
+        if ((r.rolling == true || r.stopping < r.positions + 1) && !(r.forceStopped || r.stoppedAutomatically)) {
+          r.values = betResponse.reels[i].slice();
+          r.offset = 0;
+          r.stopping = r.positions + 1;
+          r.forceStopped = true;
+        }
+      });
+    }
   } else {
+
+    socket.emit('bet', {
+      key,
+      gameId,
+      bet,
+      coinValue,
+    });
+    betResponse = null;
+
     reels.forEach((r) => {
       r.stoppedAutomatically = false;
       r.forceStopped = false;
@@ -243,7 +258,7 @@ function init() {
 
       if (active) {
         const reelStopTime = spinTime + (i * spinTimeBetweenReels);
-        if (reel.rollingTime > reelStopTime) {
+        if (reel.rollingTime > reelStopTime && betResponse) {
           reel._stopValues = reel.stopValues;
           reel.stop();
           reel.onceStop(function() {
@@ -301,15 +316,34 @@ function init() {
   socket.on('gamestate', (state) => {
     balance = state.balance;
     creditsValue.text = balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
+
+    bet = state.bet;
+    coinValue = state.coinValue;
+    betValue.text = (bet * coinValue).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
     state.reels.forEach((reelValues, i) => {
       reels[i].values = reelValues;
     });
+    
     stage.visible = true;
+  });
+
+  socket.on('bet', (data) => {
+    balance = data.balance;
+    creditsValue.text = balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
+    
+    data.reels.forEach((reelValues, i) => {
+      reels[i].stopValues = reelValues.slice();
+    });
+
+    betResponse = {
+      reels: data.reels,
+    };
   });
 
   socket.emit('gamestate', {
     gameId,
-    key: localStorage.getItem('key'),
+    key,
   });
 }
 
