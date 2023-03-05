@@ -1,8 +1,12 @@
 import { faCog, faCrown, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Header.scss';
+import { useSelector } from 'react-redux';
 
 const Header = (props) => {
+
+  const loggedIn = useSelector((state) => state.lobby.loggedIn);
+  const username = useSelector((state) => state.lobby.username);
 
   return (
     <div className="Header">
@@ -11,11 +15,11 @@ const Header = (props) => {
         <span className="name">Sloticon</span>
       </div>
 
-      <div className="menu">
+      <div className={`menu ${!loggedIn ? 'd-none' : ''}`}>
         <div className="account">
           <button className="btn-toggle-account-menu">
             <FontAwesomeIcon icon={faUserCircle} size="2x"></FontAwesomeIcon>
-            <span>Guest</span>
+            <span>{username}</span>
           </button>
         </div>
 

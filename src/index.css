@@ -8,6 +8,15 @@
   src: url('./assets/fonts/Google\ Sans\ Greek.woff2');
 }
 
+@font-face {
+  font-family: 'Archivo Black';
+  src: url('./assets/fonts/ArchivoBlack-Regular.ttf');
+}
+
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: 'Google Sans', 'Google Sans Greek', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -15,4 +24,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.d-none {
+  display: none !important;
 }

@@ -1,9 +1,13 @@
 @import './variables.scss';
 
+#root {
+  height: 100%;
+}
+
 .App {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: $background-color;

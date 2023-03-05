@@ -3,20 +3,19 @@ import anime from 'animejs';
 
 const Reel = function({
   positions,
-  values,
   spinValues,
-  stopValues,
   speed,
   bounceDepthPerc,
   bounceDuration,
   symbolMargin,
+  maskPaddingY,
 }) {
   this.positions = positions;
-  this.values = values;
-  this._spinValues = [];
+  this.values = [];
+  this._spinValues = spinValues;
   this.spinValues = spinValues;
   this._stopValues = [];
-  this.stopValues = stopValues;
+  this.stopValues = [];
   this.symbols = [];
   this.container = new PIXI.Container();
   this.mask = new PIXI.Graphics();
@@ -29,6 +28,8 @@ const Reel = function({
   this.bounceDepthPerc = bounceDepthPerc;
   this.bounceDuration = bounceDuration;
   this.stopFns = [];
+  this.startFns = [];
+  this.maskPaddingY = maskPaddingY || 0;
 
   this.container.mask = this.mask;
 
@@ -47,7 +48,7 @@ Reel.prototype.render = function() {
   m.y = _this.container.y;
   m.clear();
   m.beginFill(0x000000);
-  m.drawRect(0, 0, _this.symbols[0].width, ((_this.symbols[0].height + this.symbolMargin) * _this.positions) - this.symbolMargin);
+  m.drawRect(0, 0 - this.maskPaddingY, _this.symbols[0].width, ((_this.symbols[0].height + this.symbolMargin + this.maskPaddingY) * _this.positions) - this.symbolMargin);
   m.endFill();
 
   for (var i = 0; i < _this.symbols.length; i++) {
@@ -73,10 +74,10 @@ Reel.prototype.render = function() {
         this.values.unshift(this._stopValues.pop());
         this.stopping++;
       } else {
-        this.values.unshift(this.spinValues.pop());
+        this.values.unshift(this._spinValues.pop());
 
-        if (this.spinValues.length === 0) {
-          this.spinValues = this._spinValues.slice();
+        if (this._spinValues.length === 0) {
+          this._spinValues = this.spinValues.slice();
         }
       }
       this.values.splice(-1, 1);
@@ -118,29 +119,24 @@ Reel.prototype.render = function() {
 
 Reel.prototype.roll = function() {
   if (!this.rolling && this.stopping === false) {
-    this._spinValues = this.spinValues.slice();
     this._stopValues = this.stopValues.slice();
     this.rolling = true;
 
-    const speedSet = this.speed;
-    this.speed = 0;
-    this.accelerating = true;
-    anime({
-      targets: this,
-      speed: speedSet,
-      duration: 200,
-      easing: 'linear',
-      complete: () => {
-        this.accelerating = false;
-      },
-    });
+    for (let i = 0; i < this.startFns.length; i++) {
+      const fn = this.startFns[i];
+
+      if (fn.once) {
+        this.startFns.splice(i--, 1);
+      }
+
+      fn();
+    }
   }
 };
 
 Reel.prototype.stop = function() {
   if (this.rolling && this.stopping === false) {
     this.stopping = 0;
-    this.spinValues = this._spinValues.slice();
   }
 };
 
@@ -151,6 +147,15 @@ Reel.prototype.onceStop = function(fn) {
 
 Reel.prototype.onStop = function(fn) {
   this.stopFns.push(fn);
+};
+
+Reel.prototype.onceStart = function(fn) {
+  fn.once = true;
+  this.startFns.push(fn);
+};
+
+Reel.prototype.onStart = function(fn) {
+  this.startFns.push(fn);
 };
 
 export default Reel;

@@ -5,14 +5,12 @@ import axios from 'axios';
 import { SocketContext } from '../../context/socket';
 import * as PIXI from 'pixi.js';
 import Reel from '../../slot/Reel';
-import { useSelector } from 'react-redux';
+import gsap from 'gsap';
 
 const Game = (props) => {
   const elRef = useRef(null);
   const params = useParams();
   const socket = useContext(SocketContext);
-
-  const balance = useSelector((state) => state.lobby.balance);
 
   useEffect(() => {
     let view;
@@ -22,10 +20,11 @@ const Game = (props) => {
         const gameId = arguments[0];
         const PIXI = arguments[1];
         const Reel = arguments[2];
-        const socket = arguments[3];
+        const gsap = arguments[3];
+        const socket = arguments[4];
 
         ${response.data}
-      `))(params.gameId, PIXI, Reel, socket);
+      `))(params.gameId, PIXI, Reel, gsap, socket);
       
       const gameCanvas = elRef.current.querySelector('canvas');
       
