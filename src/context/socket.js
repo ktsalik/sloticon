@@ -17,6 +17,7 @@ socket.on('connect', () => {
   socket.on('login', (data) => {
     if (data.status === 'logged-in') {
       localStorage.setItem('key', data.key);
+
       store.dispatch(lobbySlice.actions.updateLoginState({
         status: data.status,
         username: data.username,
@@ -28,5 +29,5 @@ socket.on('connect', () => {
 
 socket.on('disconnect', () => {
   store.dispatch(lobbySlice.actions.updateLoginState('logged-out'));
-  store.dispatch(lobbySlice.actions.updateBalance(-1));
+  store.dispatch(lobbySlice.actions.updateBalance(0));
 });
