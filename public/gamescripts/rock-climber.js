@@ -582,7 +582,7 @@ function init() {
 
       linesHighlightTime += delta * 16.667;
 
-      if (linesHighlightTime >= 2000) {
+      if (linesHighlightTime >= 2500) {
         if (++lineToHighlight > betResponse.win.length) {
           lineToHighlight = 0;
         }
