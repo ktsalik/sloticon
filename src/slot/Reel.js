@@ -8,6 +8,7 @@ const Reel = function({
   bounceDepthPerc,
   bounceDuration,
   symbolMargin,
+  maskPaddingX,
   maskPaddingY,
 }) {
   this.positions = positions;
@@ -28,6 +29,7 @@ const Reel = function({
   this.bounceDuration = bounceDuration;
   this.stopFns = [];
   this.startFns = [];
+  this.maskPaddingX = maskPaddingX || 0;
   this.maskPaddingY = maskPaddingY || 0;
 
   this.container.mask = this.mask;
@@ -47,12 +49,13 @@ Reel.prototype.render = function() {
   m.y = _this.container.y;
   m.clear();
   m.beginFill(0x000000);
-  m.drawRect(0, 0 - this.maskPaddingY, _this.symbols[0].width, ((_this.symbols[0].height + this.symbolMargin + this.maskPaddingY) * _this.positions) - this.symbolMargin);
+  m.drawRect(0 - this.maskPaddingX, 0 - this.maskPaddingY, _this.symbols[0].width + (this.maskPaddingX * 2), ((_this.symbols[0].height + this.symbolMargin + this.maskPaddingY) * _this.positions) - this.symbolMargin);
   m.endFill();
 
   for (var i = 0; i < _this.symbols.length; i++) {
     var symbol = _this.symbols[i];
-    symbol.y = ((symbol.height + this.symbolMargin) * (i - 1)) + (0 + _this.offset);
+    symbol.anchor.set(0.5, 0.5);
+
     if (_this.values[i]) {
       if (this.rolling && !this.accelerating) {
         symbol.texture = PIXI.Texture.from('symbol-' + _this.values[i] + '-blurred');
@@ -62,6 +65,10 @@ Reel.prototype.render = function() {
     } else {
       symbol.texture = PIXI.Texture.EMPTY;
     }
+
+    symbol.x = symbol.width / 2;
+    symbol.y = ((symbol.height + this.symbolMargin) * (i - 1)) + (0 + _this.offset);
+    symbol.y += symbol.height / 2;
   }
 
   if (this.rolling) {

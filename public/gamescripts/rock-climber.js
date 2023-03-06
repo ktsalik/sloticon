@@ -123,6 +123,210 @@ const assetsManifest = {
           name: 'symbol-8-blurred',
           srcs: `${assetsUrl}main_game/icon_8_blurred.png`,
         },
+        {
+          name: 'symbol-win-frame',
+          srcs: `${assetsUrl}main_game/frame.png`,
+        },
+        {
+          name: 'symbol-win-effect-87',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_87.png`,
+        },
+        {
+          name: 'symbol-win-effect-88',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_88.png`,
+        },
+        {
+          name: 'symbol-win-effect-89',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_89.png`,
+        },
+        {
+          name: 'symbol-win-effect-90',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_90.png`,
+        },
+        {
+          name: 'symbol-win-effect-91',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_91.png`,
+        },
+        {
+          name: 'symbol-win-effect-92',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_92.png`,
+        },
+        {
+          name: 'symbol-win-effect-93',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_93.png`,
+        },
+        {
+          name: 'symbol-win-effect-94',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_94.png`,
+        },
+        {
+          name: 'symbol-win-effect-95',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_95.png`,
+        },
+        {
+          name: 'symbol-win-effect-96',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_96.png`,
+        },
+        {
+          name: 'symbol-win-effect-97',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_97.png`,
+        },
+        {
+          name: 'symbol-win-effect-98',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_98.png`,
+        },
+        {
+          name: 'symbol-win-effect-99',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_99.png`,
+        },
+        {
+          name: 'symbol-win-effect-100',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_100.png`,
+        },
+        {
+          name: 'symbol-win-effect-101',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_101.png`,
+        },
+        {
+          name: 'symbol-win-effect-102',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_102.png`,
+        },
+        {
+          name: 'symbol-win-effect-103',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_103.png`,
+        },
+        {
+          name: 'symbol-win-effect-104',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_104.png`,
+        },
+        {
+          name: 'symbol-win-effect-105',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_105.png`,
+        },
+        {
+          name: 'symbol-win-effect-106',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_106.png`,
+        },
+        {
+          name: 'symbol-win-effect-107',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_107.png`,
+        },
+        {
+          name: 'symbol-win-effect-108',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_108.png`,
+        },
+        {
+          name: 'symbol-win-effect-109',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_109.png`,
+        },
+        {
+          name: 'symbol-win-effect-110',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_110.png`,
+        },
+        {
+          name: 'symbol-win-effect-111',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_111.png`,
+        },
+        {
+          name: 'symbol-win-effect-112',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_112.png`,
+        },
+        {
+          name: 'symbol-win-effect-113',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_113.png`,
+        },
+        {
+          name: 'symbol-win-effect-114',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_114.png`,
+        },
+        {
+          name: 'symbol-win-effect-115',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_115.png`,
+        },
+        {
+          name: 'symbol-win-effect-116',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_116.png`,
+        },
+        {
+          name: 'symbol-win-effect-117',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_117.png`,
+        },
+        {
+          name: 'symbol-win-effect-118',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_118.png`,
+        },
+        {
+          name: 'symbol-win-effect-119',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_119.png`,
+        },
+        {
+          name: 'symbol-win-effect-120',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_120.png`,
+        },
+        {
+          name: 'symbol-win-effect-121',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_121.png`,
+        },
+        {
+          name: 'symbol-win-effect-122',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_122.png`,
+        },
+        {
+          name: 'symbol-win-effect-123',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_123.png`,
+        },
+        {
+          name: 'symbol-win-effect-124',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_124.png`,
+        },
+        {
+          name: 'symbol-win-effect-125',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_125.png`,
+        },
+        {
+          name: 'symbol-win-effect-126',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_126.png`,
+        },
+        {
+          name: 'symbol-win-effect-127',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_127.png`,
+        },
+        {
+          name: 'symbol-win-effect-128',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_128.png`,
+        },
+        {
+          name: 'symbol-win-effect-129',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_129.png`,
+        },
+        {
+          name: 'symbol-win-effect-130',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_130.png`,
+        },
+        {
+          name: 'symbol-win-effect-131',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_131.png`,
+        },
+        {
+          name: 'symbol-win-effect-132',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_132.png`,
+        },
+        {
+          name: 'symbol-win-effect-133',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_133.png`,
+        },
+        {
+          name: 'symbol-win-effect-134',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_134.png`,
+        },
+        {
+          name: 'symbol-win-effect-135',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_135.png`,
+        },
+        {
+          name: 'symbol-win-effect-136',
+          srcs: `${assetsUrl}animations/win_effect/win_effect_136.png`,
+        },
       ],
     },
   ],
@@ -142,6 +346,11 @@ Promise.all([uiAssetsLoadPromise, symbolsAssetsLoadPromise]).then(() => {
   console.log('Assets loaded');
   init();
 });
+
+const symbolWinEffectFramesIds = [];
+for (let i = 87; i <= 136; i++) {
+  symbolWinEffectFramesIds.push('symbol-win-effect-' + i);
+}
 
 const reels = [];
 
@@ -222,17 +431,18 @@ function init() {
 
   for (let i = 0; i < 5; i++) {
     const spinValues = [];
-    for (let k = 0; k < 100; k++) {
+    for (let k = 0; k < 1000; k++) {
       spinValues.push(parseInt(Math.random() * symbolsCount) + 1);
     }
 
     const reel = new Reel({
       positions: 3,
       spinValues,
-      speed: 0.18,
+      speed: 0.165,
       bounceDepthPerc: 0.1,
       bounceDuration: 350,
       symbolMargin: 20,
+      maskPaddingX: 13,
       maskPaddingY: 14,
     });
     reel.container.z = 3;
@@ -313,6 +523,96 @@ function init() {
     setTimeout(resize, 50);
   });
 
+  let linesHighlightComponents = [];
+  let lineToHighlight = 0;
+  let lineIsBeingHighlighted = false;
+  let linesHighlightTime = 0;
+  PIXI.Ticker.shared.add((delta) => {
+    if (betResponse && betResponse.isWin && !reels.active) {
+      if (!lineIsBeingHighlighted) {
+        betResponse.win.forEach((line, k) => {
+          if ((lineToHighlight === 0 || k + 1 === lineToHighlight)) {
+            for (let i = 0; i < line.map.length && i < line.count; i++) {
+              for (let j = 0; j < line.map[i].length; j++) {
+                if (line.map[i][j] === 1) {
+                  const symbol = reels[i].symbols[j];
+
+                  const animation = PIXI.AnimatedSprite.fromFrames(symbolWinEffectFramesIds);
+                  animation.anchor.set(0.5, 0.5);
+                  animation.loop = false;
+                  animation.animationSpeed = 0.5;
+                  symbol.addChild(animation);
+                  animation.onComplete = () => {
+                    if (!animation.destroyed) {
+                      gsap.to(animation.scale, { x: 0, y: 0, duration: 0.35 });
+                      gsap.to(animation, { alpha: 0, duration: 0.35, onComplete: () => {
+                        if (!animation.destroyed) {
+                          animation.destroy();
+                        }
+                      }});
+                    }
+                  };
+                  reels[i].onceStart(() => {
+                    if (!animation.destroyed) {
+                      animation.destroy();
+                    }
+                  });
+                  animation.play();
+                  linesHighlightComponents.push(animation);
+
+                  const frame = PIXI.Sprite.from('symbol-win-frame');
+                  frame.anchor.set(0.5, 0.5);
+                  frame.alpha = 0;
+                  symbol.addChild(frame);
+                  gsap.to(frame, { alpha: 1, duration: 1.2, ease: 'linear' });
+                  reels[i].onceStart(() => {
+                    if (!frame.destroyed) {
+                      frame.destroy();
+                    }
+                  });
+                  linesHighlightComponents.push(frame);
+                }
+              }
+            }
+          }
+        });
+
+        lineIsBeingHighlighted = true;
+      }
+
+      linesHighlightTime += delta * 16.667;
+
+      if (linesHighlightTime >= 2000) {
+        if (++lineToHighlight > betResponse.win.length) {
+          lineToHighlight = 0;
+        }
+
+        linesHighlightComponents.forEach((component) => {
+          if (!component.destroyed) {
+            component.destroy();
+          }
+        });
+        linesHighlightComponents = [];
+
+        lineIsBeingHighlighted = false;
+        linesHighlightTime = 0;
+      }
+    } else {
+      if (linesHighlightComponents.length) {
+        linesHighlightComponents.forEach((component) => {
+          if (!component.destroyed) {
+            component.destroy();
+          }
+        });
+        linesHighlightComponents = [];
+      }
+      
+      lineToHighlight = 0;
+      linesHighlightTime = 0;
+      lineIsBeingHighlighted = false;
+    }
+  });
+
   socket.on('gamestate', (state) => {
     balance = state.balance;
     creditsValue.text = balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
@@ -336,9 +636,10 @@ function init() {
       reels[i].stopValues = reelValues.slice();
     });
 
-    betResponse = {
-      reels: data.reels,
-    };
+    betResponse = data;
+
+    // for testing
+    // betResponse = JSON.parse(`{"balance":9021,"reels":[[8,2,5,2],[5,5,2,2],[2,3,6,2],[1,8,8,4],[8,5,4,1]],"isWin":true,"win":[{"number":7,"symbol":2,"count":3,"map":[[0,0,0,1],[0,0,0,1],[0,0,0,1],[0,0,0,1],[0,0,0,1]]},{"number":9,"symbol":2,"count":3,"map":[[0,1,0,0],[0,0,1,0],[0,0,0,1],[0,0,1,0],[0,1,0,0]]}]}`);
   });
 
   socket.emit('gamestate', {
