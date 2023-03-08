@@ -12,7 +12,8 @@ PIXI.Ticker.shared.add(() => {
 });
 
 let bet = 1;
-let coinValue = 0.01;
+const coinValueValues = [0.01, 0.03, 0.10, 0.20, 0.50];
+let coinValueValueIndex = 0;
 let balance = 0;
 let betResponse = false;
 
@@ -20,7 +21,9 @@ const symbolsCount = 8;
 const spinTime = 350;
 const spinTimeBetweenReels = 200;
 
-let creditsValue, betValue;
+let creditsValue, betValue, betValueTool, coinValueTool, totalBetTool;
+
+const texts = [];
 
 const Assets = PIXI.Assets;
 
@@ -53,6 +56,18 @@ const assetsManifest = {
         {
           name: 'circle-icon',
           srcs: `/data/circle-icon.png`,
+        },
+        {
+          name: 'minus-icon',
+          srcs: `/data/minus-solid.svg`,
+        },
+        {
+          name: 'plus-icon',
+          srcs: `/data/plus-solid.svg`,
+        },
+        {
+          name: 'xmark-icon',
+          srcs: `/data/xmark-solid.svg`,
         },
       ],
     },
@@ -387,7 +402,7 @@ function play() {
       key,
       gameId,
       bet,
-      coinValue,
+      coinValue: coinValueValues[coinValueValueIndex],
     });
     betResponse = null;
 
@@ -618,14 +633,25 @@ function init() {
     creditsValue.text = balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
 
     bet = state.bet;
-    coinValue = state.coinValue;
-    betValue.text = (bet * coinValue).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    coinValueValueIndex = coinValueValues.indexOf(state.coinValue);
+    betValue.text = (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    betValueTool.valueText.text = bet;
+    coinValueTool.valueText.text = '€' + coinValueValues[coinValueValueIndex].toFixed(2);
+    totalBetTool.valueText.text = '€' + (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     state.reels.forEach((reelValues, i) => {
       reels[i].values = reelValues;
     });
     
     stage.visible = true;
+
+    setTimeout(() => {
+      texts.forEach((text) => {
+        const t = text.text;
+        text.text = '';
+        text.text = t;
+      });
+    });
   });
 
   socket.on('bet', (data) => {
@@ -662,6 +688,7 @@ function initControls() {
   infoText.anchor.set(0.5, 0.5);
   infoText.x = 1280 / 2;
   controls.addChild(infoText);
+  texts.push(infoText);
 
   let spinCount = 0;
   reels.onStop(() => {
@@ -675,10 +702,6 @@ function initControls() {
   PIXI.Ticker.shared.add(() => {
     if (reels.active) {
       infoText.text = 'GOOD LUCK!';
-    } else {
-      const t = infoText.text;
-      infoText.text = '';
-      infoText.text = t;
     }
   });
 
@@ -689,12 +712,7 @@ function initControls() {
   });
   creditsLabel.x = 200;
   controls.addChild(creditsLabel);
-
-  PIXI.Ticker.shared.add(() => {
-    const t = creditsLabel.text;
-    creditsLabel.text = '';
-    creditsLabel.text = t;
-  });
+  texts.push(creditsLabel);
 
   const creditsValueEuroSign = new PIXI.Text('€', {
     fontFamily: 'Archivo Black',
@@ -704,12 +722,7 @@ function initControls() {
   creditsValueEuroSign.x = creditsLabel.x + creditsLabel.width + 20;
   creditsValueEuroSign.y = creditsLabel.y;
   controls.addChild(creditsValueEuroSign);
-
-  PIXI.Ticker.shared.add(() => {
-    const t = creditsValueEuroSign.text;
-    creditsValueEuroSign.text = '';
-    creditsValueEuroSign.text = t;
-  });
+  texts.push(creditsValueEuroSign);
 
   creditsValue = new PIXI.Text(balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), {
     fontFamily: 'Archivo Black',
@@ -718,12 +731,7 @@ function initControls() {
   });
   creditsValue.x = creditsValueEuroSign.x + creditsValueEuroSign.width + 5;
   controls.addChild(creditsValue);
-
-  PIXI.Ticker.shared.add(() => {
-    const t = creditsValue.text;
-    creditsValue.text = '';
-    creditsValue.text = t;
-  });
+  texts.push(creditsValue);
 
   const betLabel = new PIXI.Text('BET', {
     fontFamily: 'Archivo Black',
@@ -733,12 +741,7 @@ function initControls() {
   betLabel.x = creditsLabel.x + creditsLabel.width - betLabel.width + 4;
   betLabel.y = creditsLabel.y + betLabel.height + 5;
   controls.addChild(betLabel);
-
-  PIXI.Ticker.shared.add(() => {
-    const t = betLabel.text;
-    betLabel.text = '';
-    betLabel.text = t;
-  });
+  texts.push(betLabel);
 
   const betValueEuroSign = new PIXI.Text('€', {
     fontFamily: 'Archivo Black',
@@ -748,14 +751,9 @@ function initControls() {
   betValueEuroSign.x = betLabel.x + betLabel.width + 16;
   betValueEuroSign.y = betLabel.y;
   controls.addChild(betValueEuroSign);
+  texts.push(betValueEuroSign);
 
-  PIXI.Ticker.shared.add(() => {
-    const t = betValueEuroSign.text;
-    betValueEuroSign.text = '';
-    betValueEuroSign.text = t;
-  });
-
-  betValue = new PIXI.Text((bet * coinValue).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), {
+  betValue = new PIXI.Text((bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), {
     fontFamily: 'Archivo Black',
     fontSize: 20,
     fill: '#FFFFFF',
@@ -763,12 +761,7 @@ function initControls() {
   betValue.x = betValueEuroSign.x + betValueEuroSign.width + 5;
   betValue.y = betLabel.y;
   controls.addChild(betValue);
-
-  PIXI.Ticker.shared.add(() => {
-    const t = betValue.text;
-    betValue.text = '';
-    betValue.text = t;
-  });
+  texts.push(betValue);
 
   const btnPlay = PIXI.Sprite.from('spin-icon');
   btnPlay.scale.x = 0.3;
@@ -865,10 +858,7 @@ function initControls() {
   }));
   btnAutoplayText.anchor.set(0.5, 0.5);
   btnAutoplay.addChild(btnAutoplayText);
-  PIXI.Ticker.shared.add(() => {
-    btnAutoplayText.text = '';
-    btnAutoplayText.text = 'AUTOPLAY';
-  });
+  texts.push(btnAutoplayText);
 
   const btnAutoplayTextPaddingX = 12;
   const btnAutoplayTextPaddingY = 2;
@@ -889,6 +879,184 @@ function initControls() {
     12
   );
   btnAutoplayBackground.endFill();
+
+  const btnBetMinusCircle = new PIXI.Graphics();
+  btnBetMinusCircle.beginFill(0x000000, 0.4);
+  btnBetMinusCircle.lineStyle(10, 0xFFFFFF);
+  btnBetMinusCircle.drawEllipse(0, 0, 100, 100);
+  btnBetMinusCircle.endFill();
+  btnBetMinusCircle.scale.x = 0.22;
+  btnBetMinusCircle.scale.y = 0.22;
+  btnBetMinusCircle.x = btnPlay.x - (btnPlay.width / 2) - btnBetMinusCircle.width;
+  btnBetMinusCircle.y = btnPlay.y + (btnPlay.height / 2) - (btnBetMinusCircle.height / 2) + 10;
+  controls.addChild(btnBetMinusCircle);
+
+  const btnBetMinus = PIXI.Sprite.from('minus-icon');
+  btnBetMinus.anchor.set(0.5, 0.5);
+  btnBetMinusCircle.addChild(btnBetMinus);
+
+  const btnBetPlusCircle = new PIXI.Graphics();
+  btnBetPlusCircle.beginFill(0x000000, 0.4);
+  btnBetPlusCircle.lineStyle(10, 0xFFFFFF);
+  btnBetPlusCircle.drawEllipse(0, 0, 100, 100);
+  btnBetPlusCircle.endFill();
+  btnBetPlusCircle.scale.x = 0.22;
+  btnBetPlusCircle.scale.y = 0.22;
+  btnBetPlusCircle.x = btnPlay.x + (btnPlay.width / 2) + btnBetPlusCircle.width;
+  btnBetPlusCircle.y = btnPlay.y + (btnPlay.height / 2) - (btnBetPlusCircle.height / 2) + 10;
+  controls.addChild(btnBetPlusCircle);
+
+  const btnBetPlus = PIXI.Sprite.from('plus-icon');
+  btnBetPlus.anchor.set(0.5, 0.5);
+  btnBetPlusCircle.addChild(btnBetPlus);
+
+  initBetWindow();
+}
+
+function initBetWindow() {
+  const container = new PIXI.Container();
+  container.x = 850;
+  container.y = 130;
+  stage.addChild(container);
+
+  const background = new PIXI.Graphics();
+  background.beginFill(0x000000, 0.9);
+  background.drawRoundedRect(0, 0, 280, 400, 10);
+  background.endFill();
+  container.addChild(background);
+
+  const betMultiplerText = new PIXI.Text('BET MULTIPLIER 10x', {
+    fontFamily: 'Archivo Black',
+    fontSize: 15,
+    fill: '#FDAD00',
+  });
+  betMultiplerText.anchor.set(0.5, 0);
+  betMultiplerText.x = container.width / 2;
+  betMultiplerText.y = 20;
+  container.addChild(betMultiplerText);
+  texts.push(betMultiplerText);
+
+  betValueTool = createBetTool('BET');
+  betValueTool.container.x = 0;
+  betValueTool.container.y = betMultiplerText.y + betMultiplerText.height + 50;
+  container.addChild(betValueTool.container);
+  betValueTool.valueText.text = bet;
+  betValueTool.btnMinus.on('pointerdown', function() {
+    if (bet > 1) {
+      bet -= 1;
+      betValueTool.valueText.text = bet;
+      betValue.text = (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      totalBetTool.valueText.text = '€' + (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  });
+  betValueTool.btnPlus.on('pointerdown', function() {
+    if (bet < 10) {
+      bet += 1;
+      betValueTool.valueText.text = bet;
+      betValue.text = (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      totalBetTool.valueText.text = '€' + (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  });
+
+  coinValueTool = createBetTool('COIN VALUE');
+  coinValueTool.container.x = 0;
+  coinValueTool.container.y = betValueTool.container.y + betValueTool.container.height + 30;
+  container.addChild(coinValueTool.container);
+  coinValueTool.valueText.text = '€' + coinValueValues[coinValueValueIndex].toFixed(2);
+  coinValueTool.btnMinus.on('pointerdown', function() {
+    if (coinValueValueIndex > 0) {
+      coinValueValueIndex--;
+      coinValueTool.valueText.text = '€' + coinValueValues[coinValueValueIndex].toFixed(2);
+      betValue.text = (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      totalBetTool.valueText.text = '€' + (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  });
+  coinValueTool.btnPlus.on('pointerdown', function() {
+    if (coinValueValueIndex < coinValueValues.length - 1) {
+      coinValueValueIndex += 1;
+      coinValueTool.valueText.text = '€' + coinValueValues[coinValueValueIndex].toFixed(2);
+      betValue.text = (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      totalBetTool.valueText.text = '€' + (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  });
+
+  totalBetTool = createBetTool('TOTAL BET');
+  totalBetTool.container.x = 0;
+  totalBetTool.container.y = coinValueTool.container.y + coinValueTool.container.height + 30;
+  container.addChild(totalBetTool.container);
+  totalBetTool.valueText.text = '€' + (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+}
+
+function createBetTool(label) {
+  const container = new PIXI.Container();
+
+  const labelText = new PIXI.Text(label, {
+    fontFamily: 'Archivo Black',
+    fontSize: 15,
+    fill: '#FFFFFF',
+  });
+  labelText.anchor.set(0.5, 0.5);
+  container.addChild(labelText);
+  texts.push(labelText);
+
+  const btnMinusCircle = new PIXI.Graphics();
+  btnMinusCircle.beginFill(0xFFFFFF);
+  btnMinusCircle.drawCircle(0, 0, 25);
+  btnMinusCircle.x = btnMinusCircle.width;
+  btnMinusCircle.y = labelText.height + 30;
+  btnMinusCircle.interactive = true;
+  container.addChild(btnMinusCircle);
+
+  const btnMinusIcon = PIXI.Sprite.from('minus-icon');
+  btnMinusIcon.scale.set(0.22, 0.22);
+  btnMinusIcon.anchor.set(0.5, 0.5);
+  btnMinusIcon.tint = 0x333333;
+  btnMinusCircle.addChild(btnMinusIcon);
+
+  const valueBackgroundBorder = new PIXI.Graphics();
+  valueBackgroundBorder.beginFill(0x444444);
+  valueBackgroundBorder.drawRoundedRect(0, 0, 100, 50, 5);
+  valueBackgroundBorder.endFill();
+  valueBackgroundBorder.x = btnMinusCircle.x + (btnMinusCircle.width / 2) + 15;
+  valueBackgroundBorder.y = btnMinusCircle.y - (btnMinusCircle.height / 2);
+  container.addChild(valueBackgroundBorder);
+
+  const valueBackground = new PIXI.Graphics();
+  valueBackground.beginFill(0x222222);
+  valueBackground.drawRoundedRect(3, 3, 94, 44, 5);
+  valueBackground.endFill();
+  valueBackgroundBorder.addChild(valueBackground);
+
+  const valueText = new PIXI.Text('', {
+    fontFamily: 'Google Sans',
+    fontWeight: 800,
+    fontSize: 16,
+    fill: '#FFFFFF',
+  });
+  valueText.anchor.set(0.5, 0.5);
+  valueText.x = valueBackgroundBorder.width / 2;
+  valueText.y = valueBackgroundBorder.height / 2;
+  valueBackgroundBorder.addChild(valueText);
+  texts.push(valueText);
+
+  const btnPlusCircle = new PIXI.Graphics();
+  btnPlusCircle.beginFill(0x00B862);
+  btnPlusCircle.drawCircle(0, 0, 25);
+  btnPlusCircle.x = valueBackgroundBorder.x + valueBackgroundBorder.width + (btnPlusCircle.width / 2) + 15;
+  btnPlusCircle.y = btnMinusCircle.y;
+  btnPlusCircle.interactive = true;
+  container.addChild(btnPlusCircle);
+
+  const btnPlusIcon = PIXI.Sprite.from('plus-icon');
+  btnPlusIcon.scale.set(0.22, 0.22);
+  btnPlusIcon.anchor.set(0.5, 0.5);
+  btnPlusIcon.tint = 0xFFFFFF;
+  btnPlusCircle.addChild(btnPlusIcon);
+
+  labelText.x = valueBackgroundBorder.x + (valueBackgroundBorder.width / 2);
+
+  return { container, valueText, btnMinus: btnMinusCircle, btnPlus: btnPlusCircle };
 }
 
 window.renderer = renderer;
