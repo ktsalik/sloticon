@@ -3,6 +3,7 @@ const key = localStorage.getItem('key');
 const renderer = new PIXI.autoDetectRenderer({
   width: window.innerWidth,
   height: window.innerHeight,
+  antialias: true,
 });
 
 const stage = new PIXI.Container();
@@ -22,6 +23,7 @@ const spinTime = 350;
 const spinTimeBetweenReels = 200;
 
 let creditsValue, betValue, betValueTool, coinValueTool, totalBetTool;
+let onBtnTotalBetMinus, onBtnTotalBetPlus;
 
 const texts = [];
 
@@ -675,6 +677,13 @@ function init() {
 }
 
 function initControls() {
+  const betWindow = initBetWindow();
+  betWindow.visible = false;
+
+  reels.onStart(() => {
+    betWindow.visible = false;
+  });
+
   const controls = new PIXI.Container();
   controls.y = 800 - 180;
   controls.z = 10;
@@ -889,6 +898,11 @@ function initControls() {
   btnBetMinusCircle.scale.y = 0.22;
   btnBetMinusCircle.x = btnPlay.x - (btnPlay.width / 2) - btnBetMinusCircle.width;
   btnBetMinusCircle.y = btnPlay.y + (btnPlay.height / 2) - (btnBetMinusCircle.height / 2) + 10;
+  btnBetMinusCircle.interactive = true;
+  btnBetMinusCircle.on('pointerdown', () => {
+    onBtnTotalBetMinus();
+    betWindow.visible = true;
+  });
   controls.addChild(btnBetMinusCircle);
 
   const btnBetMinus = PIXI.Sprite.from('minus-icon');
@@ -904,13 +918,16 @@ function initControls() {
   btnBetPlusCircle.scale.y = 0.22;
   btnBetPlusCircle.x = btnPlay.x + (btnPlay.width / 2) + btnBetPlusCircle.width;
   btnBetPlusCircle.y = btnPlay.y + (btnPlay.height / 2) - (btnBetPlusCircle.height / 2) + 10;
+  btnBetPlusCircle.interactive = true;
+  btnBetPlusCircle.on('pointerdown', () => {
+    onBtnTotalBetPlus();
+    betWindow.visible = true;
+  });
   controls.addChild(btnBetPlusCircle);
 
   const btnBetPlus = PIXI.Sprite.from('plus-icon');
   btnBetPlus.anchor.set(0.5, 0.5);
   btnBetPlusCircle.addChild(btnBetPlus);
-
-  initBetWindow();
 }
 
 function initBetWindow() {
@@ -924,6 +941,16 @@ function initBetWindow() {
   background.drawRoundedRect(0, 0, 280, 400, 10);
   background.endFill();
   container.addChild(background);
+
+  const btnClose = PIXI.Sprite.from('xmark-icon');
+  btnClose.scale.set(0.2, 0.2);
+  btnClose.x = container.width - btnClose.width - 10;
+  btnClose.y = 5;
+  btnClose.interactive = true;
+  btnClose.on('pointerdown', () => {
+    container.visible = false;
+  });
+  container.addChild(btnClose);
 
   const betMultiplerText = new PIXI.Text('BET MULTIPLIER 10x', {
     fontFamily: 'Archivo Black',
@@ -985,7 +1012,41 @@ function initBetWindow() {
   totalBetTool.container.y = coinValueTool.container.y + coinValueTool.container.height + 30;
   container.addChild(totalBetTool.container);
   totalBetTool.valueText.text = '€' + (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  onBtnTotalBetMinus = function() {
+    if (bet === 1) {
+      if (coinValueValueIndex > 0) {
+        coinValueValueIndex--;
+        bet = 10;
+      }
+    } else {
+      bet--;
+    }
 
+    betValueTool.valueText.text = bet;
+    coinValueTool.valueText.text = '€' + coinValueValues[coinValueValueIndex].toFixed(2);
+    totalBetTool.valueText.text = '€' + (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    betValue.text = (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
+  totalBetTool.btnMinus.on('pointerdown', onBtnTotalBetMinus);
+
+  onBtnTotalBetPlus = function() {
+    if (bet === 10) {
+      if (coinValueValueIndex < coinValueValues.length - 1) {
+        coinValueValueIndex++;
+        bet = 1;
+      }
+    } else {
+      bet++;
+    }
+
+    betValueTool.valueText.text = bet;
+    coinValueTool.valueText.text = '€' + coinValueValues[coinValueValueIndex].toFixed(2);
+    totalBetTool.valueText.text = '€' + (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    betValue.text = (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
+  totalBetTool.btnPlus.on('pointerdown', onBtnTotalBetPlus);
+
+  return container;
 }
 
 function createBetTool(label) {
