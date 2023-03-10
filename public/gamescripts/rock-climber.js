@@ -381,6 +381,7 @@ reels.onStartFns = [];
 reels.onStart = (fn) => reels.onStartFns.push(fn);
 reels.onStopFns = [];
 reels.onStop = (fn) => reels.onStopFns.push(fn);
+reels.onceStop = (fn) => { fn.once = true; reels.onStopFns.push(fn); }
 reels.onStopCommandFns = [];
 reels.onStopCommand = (fn) => reels.onStopCommandFns.push(fn);
 
@@ -415,7 +416,15 @@ function play() {
 
       r.onceStop(() => {
         if (!reels.active) {
-          reels.onStopFns.forEach((fn) => fn());
+          for (let i = 0; i < reels.onStopFns.length; i++) {
+            const fn = reels.onStopFns[i];
+
+            if (fn.once) {
+              reels.onStopFns.splice(i--, 1);
+            }
+            
+            fn();
+          }
         }
       });
     });
@@ -663,6 +672,18 @@ function init() {
     data.reels.forEach((reelValues, i) => {
       reels[i].stopValues = reelValues.slice();
     });
+
+    if (data.isWin) {
+      let totalWin = 0;
+      data.win.forEach((line) => totalWin += line.amount);
+
+      const o = { balance };
+      reels.onceStop(() => {
+        gsap.to(o, { balance: data.balance + totalWin, onUpdate: () => {
+          creditsValue.text = o.balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
+        }});
+      });
+    }
 
     betResponse = data;
 
