@@ -13,8 +13,18 @@ socket.on('connect', () => {
   socket.emit('login', {
     key: localKey,
   });
+  const waitForLoginTimeout = setTimeout(() => {
+    // propably invalid key in localStorage
+    localStorage.removeItem('key');
+
+    socket.emit('login', {
+      key: localKey,
+    });
+  }, 5000);
 
   socket.on('login', (data) => {
+    clearTimeout(waitForLoginTimeout);
+
     if (data.status === 'logged-in') {
       localStorage.setItem('key', data.key);
 

@@ -61,15 +61,151 @@ const assetsManifest = {
         },
         {
           name: 'minus-icon',
-          srcs: `/data/minus-solid.svg`,
+          srcs: `/data/minus-solid.png`,
         },
         {
           name: 'plus-icon',
-          srcs: `/data/plus-solid.svg`,
+          srcs: `/data/plus-solid.png`,
         },
         {
           name: 'xmark-icon',
-          srcs: `/data/xmark-solid.svg`,
+          srcs: `/data/xmark-solid.png`,
+        },
+        {
+          name: 'character-idle-00',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_00.png`,
+        },
+        {
+          name: 'character-idle-01',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_01.png`,
+        },
+        {
+          name: 'character-idle-02',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_02.png`,
+        },
+        {
+          name: 'character-idle-03',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_03.png`,
+        },
+        {
+          name: 'character-idle-04',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_04.png`,
+        },
+        {
+          name: 'character-idle-05',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_05.png`,
+        },
+        {
+          name: 'character-idle-06',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_06.png`,
+        },
+        {
+          name: 'character-idle-07',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_07.png`,
+        },
+        {
+          name: 'character-idle-08',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_08.png`,
+        },
+        {
+          name: 'character-idle-09',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_09.png`,
+        },
+        {
+          name: 'character-idle-10',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_10.png`,
+        },
+        {
+          name: 'character-idle-11',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_11.png`,
+        },
+        {
+          name: 'character-idle-12',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_12.png`,
+        },
+        {
+          name: 'character-idle-13',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_13.png`,
+        },
+        {
+          name: 'character-idle-14',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_14.png`,
+        },
+        {
+          name: 'character-idle-15',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_15.png`,
+        },
+        {
+          name: 'character-idle-16',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_16.png`,
+        },
+        {
+          name: 'character-idle-17',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_17.png`,
+        },
+        {
+          name: 'character-idle-18',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_18.png`,
+        },
+        {
+          name: 'character-idle-19',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_19.png`,
+        },
+        {
+          name: 'character-idle-20',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_20.png`,
+        },
+        {
+          name: 'character-idle-21',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_21.png`,
+        },
+        {
+          name: 'character-idle-22',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_22.png`,
+        },
+        {
+          name: 'character-idle-23',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_23.png`,
+        },
+        {
+          name: 'character-idle-24',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_24.png`,
+        },
+        {
+          name: 'character-idle-25',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_25.png`,
+        },
+        {
+          name: 'character-idle-26',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_26.png`,
+        },
+        {
+          name: 'character-idle-27',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_27.png`,
+        },
+        {
+          name: 'character-idle-28',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_28.png`,
+        },
+        {
+          name: 'character-idle-29',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_29.png`,
+        },
+        {
+          name: 'character-idle-30',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_30.png`,
+        },
+        {
+          name: 'character-idle-31',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_31.png`,
+        },
+        {
+          name: 'character-idle-32',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_32.png`,
+        },
+        {
+          name: 'character-idle-33',
+          srcs: `${assetsUrl}animations/pers/pers_idle/pers_idle_33.png`,
         },
       ],
     },
@@ -369,6 +505,11 @@ for (let i = 87; i <= 136; i++) {
   symbolWinEffectFramesIds.push('symbol-win-effect-' + i);
 }
 
+const characterIdleAnimationFramesIds = [];
+for (let i = 0; i <= 33; i++) {
+  characterIdleAnimationFramesIds.push('character-idle-' + (i <= 9 ? '0' : '') + i);
+}
+
 const reels = [];
 
 Object.defineProperty(reels, 'active', {
@@ -465,6 +606,14 @@ function init() {
   logo.x = 1280 / 2;
   logo.z = 6;
   stage.addChild(logo);
+
+  const characterAnimation = PIXI.AnimatedSprite.fromFrames(characterIdleAnimationFramesIds);
+  characterAnimation.animationSpeed = 0.3;
+  characterAnimation.x = 950;
+  characterAnimation.y = 200;
+  characterAnimation.z = 10;
+  characterAnimation.play();
+  stage.addChild(characterAnimation);
 
   for (let i = 0; i < 5; i++) {
     const spinValues = [];
@@ -691,7 +840,7 @@ function init() {
 
       const o = { balance };
       reels.onceStop(() => {
-        gsap.to(o, { balance: data.balance + totalWin, onUpdate: () => {
+        gsap.to(o, { balance: data.balance + totalWin, duration: 2, onUpdate: () => {
           creditsValue.text = o.balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
         }});
 
@@ -968,6 +1117,8 @@ function initControls() {
   controls.addChild(btnBetMinusCircle);
 
   const btnBetMinus = PIXI.Sprite.from('minus-icon');
+  btnBetMinus.scale.x = 0.3;
+  btnBetMinus.scale.y = 0.3;
   btnBetMinus.anchor.set(0.5, 0.5);
   btnBetMinusCircle.addChild(btnBetMinus);
 
@@ -989,6 +1140,8 @@ function initControls() {
 
   const btnBetPlus = PIXI.Sprite.from('plus-icon');
   btnBetPlus.anchor.set(0.5, 0.5);
+  btnBetPlus.scale.x = 0.3;
+  btnBetPlus.scale.y = 0.3;
   btnBetPlusCircle.addChild(btnBetPlus);
 }
 
@@ -1005,7 +1158,7 @@ function initBetWindow() {
   container.addChild(background);
 
   const btnClose = PIXI.Sprite.from('xmark-icon');
-  btnClose.scale.set(0.2, 0.2);
+  btnClose.scale.set(0.07, 0.07);
   btnClose.x = container.width - btnClose.width - 10;
   btnClose.y = 5;
   btnClose.interactive = true;
@@ -1132,7 +1285,7 @@ function createBetTool(label) {
   container.addChild(btnMinusCircle);
 
   const btnMinusIcon = PIXI.Sprite.from('minus-icon');
-  btnMinusIcon.scale.set(0.22, 0.22);
+  btnMinusIcon.scale.set(0.07, 0.07);
   btnMinusIcon.anchor.set(0.5, 0.5);
   btnMinusIcon.tint = 0x333333;
   btnMinusCircle.addChild(btnMinusIcon);
@@ -1172,7 +1325,7 @@ function createBetTool(label) {
   container.addChild(btnPlusCircle);
 
   const btnPlusIcon = PIXI.Sprite.from('plus-icon');
-  btnPlusIcon.scale.set(0.22, 0.22);
+  btnPlusIcon.scale.set(0.07, 0.07);
   btnPlusIcon.anchor.set(0.5, 0.5);
   btnPlusIcon.tint = 0xFFFFFF;
   btnPlusCircle.addChild(btnPlusIcon);
