@@ -22,7 +22,7 @@ const symbolsCount = 8;
 const spinTime = 350;
 const spinTimeBetweenReels = 200;
 
-let creditsValue, betValue, betValueTool, coinValueTool, totalBetTool;
+let creditsValue, betValue, betValueTool, coinValueTool, totalBetTool, winAmountContainer, winAmountText, infoText;
 let onBtnTotalBetMinus, onBtnTotalBetPlus;
 
 const texts = [];
@@ -379,6 +379,7 @@ Object.defineProperty(reels, 'active', {
 
 reels.onStartFns = [];
 reels.onStart = (fn) => reels.onStartFns.push(fn);
+reels.onceStart = (fn) => { fn.once = true; reels.onStartFns.push(fn); };
 reels.onStopFns = [];
 reels.onStop = (fn) => reels.onStopFns.push(fn);
 reels.onceStop = (fn) => { fn.once = true; reels.onStopFns.push(fn); }
@@ -408,6 +409,8 @@ function play() {
       coinValue: coinValueValues[coinValueValueIndex],
     });
     betResponse = null;
+    balance -= Math.round((bet * 10 * coinValueValues[coinValueValueIndex]) * 100) / 100;
+    creditsValue.text = balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
 
     reels.forEach((r) => {
       r.stoppedAutomatically = false;
@@ -429,7 +432,15 @@ function play() {
       });
     });
 
-    reels.onStartFns.forEach((fn) => fn());
+    for (let i = 0; i < reels.onStartFns.length; i++) {
+      const fn = reels.onStartFns[i];
+
+      if (fn.once) {
+        reels.onStartFns.splice(i--, 1);
+      }
+
+      fn();
+    }
   }
 }
 
@@ -492,9 +503,9 @@ function init() {
       const reel = reels[i];
       active = reel.rolling == true || reel.stopping !== false;
 
-      if (active) {
+      if (active && betResponse) {
         const reelStopTime = spinTime + (i * spinTimeBetweenReels);
-        if (reel.rollingTime > reelStopTime && betResponse) {
+        if (reel.rollingTime > reelStopTime) {
           reel._stopValues = reel.stopValues;
           reel.stop();
           reel.onceStop(function() {
@@ -676,12 +687,21 @@ function init() {
     if (data.isWin) {
       let totalWin = 0;
       data.win.forEach((line) => totalWin += line.amount);
+      winAmountText.text = '€' + totalWin.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
 
       const o = { balance };
       reels.onceStop(() => {
         gsap.to(o, { balance: data.balance + totalWin, onUpdate: () => {
           creditsValue.text = o.balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
         }});
+
+        infoText.visible = false;
+        winAmountContainer.visible = true;
+        winAmountContainer.x = (1280 / 2) - (winAmountContainer.width / 2);
+        reels.onceStart(() => {
+          infoText.visible = true;
+          winAmountContainer.visible = false;
+        });
       });
     }
 
@@ -710,7 +730,7 @@ function initControls() {
   controls.z = 10;
   stage.addChild(controls);
 
-  const infoText = new PIXI.Text('HOLD SPACE FOR TURBO SPIN', new PIXI.TextStyle({
+  infoText = new PIXI.Text('HOLD SPACE FOR TURBO SPIN', new PIXI.TextStyle({
     fontFamily: 'Archivo Black',
     fontSize: 22,
     fill: '#FFFFFF',
@@ -792,6 +812,27 @@ function initControls() {
   betValue.y = betLabel.y;
   controls.addChild(betValue);
   texts.push(betValue);
+
+  winAmountContainer = new PIXI.Container();
+  winAmountContainer.visible = false;
+  controls.addChild(winAmountContainer);
+
+  const winLabel = new PIXI.Text('WIN:', {
+    fontFamily: 'Archivo Black',
+    fontSize: 30,
+    fill: '#FDAD00',
+  });
+  winAmountContainer.addChild(winLabel);
+  texts.push(winLabel);
+
+  winAmountText = new PIXI.Text('', {
+    fontFamily: 'Archivo Black',
+    fontSize: 30,
+    fill: '#FFFFFF',
+  });
+  winAmountText.x = winLabel.width + 15;
+  winAmountContainer.addChild(winAmountText);
+  texts.push(winAmountText);
 
   const btnPlay = PIXI.Sprite.from('spin-icon');
   btnPlay.scale.x = 0.3;
