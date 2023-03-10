@@ -822,7 +822,7 @@ function init() {
         text.text = '';
         text.text = t;
       });
-    });
+    }, 100);
   });
 
   socket.on('bet', (data) => {
