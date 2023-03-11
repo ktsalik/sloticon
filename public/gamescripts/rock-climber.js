@@ -527,8 +527,12 @@ reels.onceStop = (fn) => { fn.once = true; reels.onStopFns.push(fn); }
 reels.onStopCommandFns = [];
 reels.onStopCommand = (fn) => reels.onStopCommandFns.push(fn);
 
+let stopCommandGiven = false;
+
 function play() {
   if (reels.active) {
+    stopCommandGiven = true;
+
     if (betResponse) {
       reels.onStopCommandFns.forEach((fn) => fn());
 
@@ -542,7 +546,6 @@ function play() {
       });
     }
   } else {
-
     socket.emit('bet', {
       key,
       gameId,
@@ -550,6 +553,7 @@ function play() {
       coinValue: coinValueValues[coinValueValueIndex],
     });
     betResponse = null;
+    stopCommandGiven = false;
     balance -= Math.round((bet * 10 * coinValueValues[coinValueValueIndex]) * 100) / 100;
     creditsValue.text = balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
 
@@ -856,6 +860,9 @@ function init() {
 
     betResponse = data;
 
+    if (stopCommandGiven) {
+      play();
+    }
     // for testing
     // betResponse = JSON.parse(`{"balance":9021,"reels":[[8,2,5,2],[5,5,2,2],[2,3,6,2],[1,8,8,4],[8,5,4,1]],"isWin":true,"win":[{"number":7,"symbol":2,"count":3,"map":[[0,0,0,1],[0,0,0,1],[0,0,0,1],[0,0,0,1],[0,0,0,1]]},{"number":9,"symbol":2,"count":3,"map":[[0,1,0,0],[0,0,1,0],[0,0,0,1],[0,0,1,0],[0,1,0,0]]}]}`);
   });

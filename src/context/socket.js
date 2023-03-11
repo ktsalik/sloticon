@@ -8,17 +8,16 @@ export const socket = io.connect('http://localhost:3001');
 export const SocketContext = React.createContext();
 
 socket.on('connect', () => {
-  const localKey = localStorage.getItem('key');
 
   socket.emit('login', {
-    key: localKey,
+    key: localStorage.getItem('key'),
   });
   const waitForLoginTimeout = setTimeout(() => {
     // propably invalid key in localStorage
     localStorage.removeItem('key');
 
     socket.emit('login', {
-      key: localKey,
+      key: localStorage.getItem('key'),
     });
   }, 5000);
 
