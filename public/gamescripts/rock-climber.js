@@ -1033,7 +1033,7 @@ function initControls() {
   controls.addChild(btnPlay);
 
   PIXI.Ticker.shared.add(() => {
-    if (reels.active) {
+    if (reels.active || autoplay) {
       btnPlay.texture = PIXI.Texture.from('stop-icon');
     } else {
       btnPlay.texture = PIXI.Texture.from('spin-icon');
