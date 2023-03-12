@@ -21,6 +21,9 @@ let betResponse = false;
 const symbolsCount = 8;
 const spinTime = 350;
 const spinTimeBetweenReels = 200;
+let autoplay = false;
+let creditsTween;
+let creditsTweenCompleted = true;
 
 let creditsValue, betValue, betValueTool, coinValueTool, totalBetTool, winAmountContainer, winAmountText, infoText;
 let onBtnTotalBetMinus, onBtnTotalBetPlus;
@@ -803,6 +806,16 @@ function init() {
     }
   });
 
+  PIXI.Ticker.shared.add(() => {
+    if (autoplay) {
+      if (!reels.active) {
+        if (betResponse === null || (!betResponse.isWin) || creditsTweenCompleted) {
+          play();
+        }
+      }
+    }
+  });
+
   socket.on('gamestate', (state) => {
     balance = state.balance;
     creditsValue.text = balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
@@ -844,8 +857,9 @@ function init() {
       balance -= totalWin;
 
       const o = { balance };
+      creditsTweenCompleted = false;
       reels.onceStop(() => {
-        const creditsTween = gsap.to(o, {
+        creditsTween = gsap.to(o, {
           balance: balance + totalWin,
           duration: 2,
           onUpdate: () => {
@@ -853,6 +867,7 @@ function init() {
           },
           onComplete: () => {
             balance = data.balance;
+            creditsTweenCompleted = true;
           },
         });
 
@@ -860,10 +875,12 @@ function init() {
         winAmountContainer.visible = true;
         winAmountContainer.x = (1280 / 2) - (winAmountContainer.width / 2);
         reels.onceStart(() => {
-          if (creditsTween.isActive()) {
-            creditsTween.progress(1);
-            creditsTween.kill();
-          }
+          setTimeout(() => {
+            if (creditsTween && creditsTween.isActive()) {
+              creditsTween.progress(1);
+              creditsTween.kill();
+            }
+          });
 
           infoText.visible = true;
           winAmountContainer.visible = false;
@@ -1088,6 +1105,8 @@ function initControls() {
   const btnAutoplay = new PIXI.Container();
   btnAutoplay.x = btnPlay.x;
   btnAutoplay.y = 65;
+  btnAutoplay.interactive = true;
+  btnAutoplay.on('pointerdown', () => { autoplay = !autoplay; });
   controls.addChild(btnAutoplay);
 
   const btnAutoplayBackground = new PIXI.Graphics();
