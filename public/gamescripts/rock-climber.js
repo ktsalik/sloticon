@@ -831,7 +831,6 @@ function init() {
 
   socket.on('bet', (data) => {
     balance = data.balance;
-    creditsValue.text = balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
     
     data.reels.forEach((reelValues, i) => {
       reels[i].stopValues = reelValues.slice();
@@ -842,21 +841,37 @@ function init() {
       data.win.forEach((line) => totalWin += line.amount);
       winAmountText.text = '€' + totalWin.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
 
+      balance -= totalWin;
+
       const o = { balance };
       reels.onceStop(() => {
-        gsap.to(o, { balance: data.balance + totalWin, duration: 2, onUpdate: () => {
-          creditsValue.text = o.balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
-        }});
+        const creditsTween = gsap.to(o, {
+          balance: balance + totalWin,
+          duration: 2,
+          onUpdate: () => {
+            creditsValue.text = o.balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
+          },
+          onComplete: () => {
+            balance = data.balance;
+          },
+        });
 
         infoText.visible = false;
         winAmountContainer.visible = true;
         winAmountContainer.x = (1280 / 2) - (winAmountContainer.width / 2);
         reels.onceStart(() => {
+          if (creditsTween.isActive()) {
+            creditsTween.progress(1);
+            creditsTween.kill();
+          }
+
           infoText.visible = true;
           winAmountContainer.visible = false;
         });
       });
     }
+
+    creditsValue.text = balance.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits: 2 });
 
     betResponse = data;
 
