@@ -25,7 +25,7 @@ let autoplay = false;
 let creditsTween;
 let creditsTweenCompleted = true;
 
-let creditsValue, betValue, betValueTool, coinValueTool, totalBetTool, winAmountContainer, winAmountText, infoText;
+let creditsValue, betValue, betValueTool, coinValueTool, totalBetTool, winAmountContainer, winAmountText, infoText, btnAutoplayText;
 let onBtnTotalBetMinus, onBtnTotalBetPlus;
 
 const texts = [];
@@ -814,6 +814,10 @@ function init() {
           play();
         }
       }
+
+      btnAutoplayText.tint = 0xB1071D;
+    } else {
+      btnAutoplayText.tint = 0xFFFFFF;
     }
   });
 
@@ -1113,7 +1117,7 @@ function initControls() {
   const btnAutoplayBackground = new PIXI.Graphics();
   btnAutoplay.addChild(btnAutoplayBackground);
 
-  const btnAutoplayText = new PIXI.Text('AUTOPLAY', new PIXI.TextStyle({
+  btnAutoplayText = new PIXI.Text('AUTOPLAY', new PIXI.TextStyle({
     fontFamily: 'Archivo Black',
     fontSize: 12,
     fill: '#FFFFFF',
@@ -1270,14 +1274,26 @@ function initBetWindow() {
   container.addChild(totalBetTool.container);
   totalBetTool.valueText.text = '€' + (bet * 10 * coinValueValues[coinValueValueIndex]).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   onBtnTotalBetMinus = function() {
-    if (bet === 1) {
-      if (coinValueValueIndex > 0) {
-        coinValueValueIndex--;
-        bet = 10;
+    let betDecreased = false;
+
+    let b = bet, cvvi = coinValueValueIndex, tb;
+    while (!betDecreased && (b > 1 || cvvi > 0)) {
+      if (b === 1) {
+        if (cvvi > 0) {
+          cvvi--;
+          b = 10;
+        }
+      } else {
+        b--;
       }
-    } else {
-      bet--;
+
+      tb = b * 10 * coinValueValues[cvvi];
+      const currentBet = bet * 10 * coinValueValues[coinValueValueIndex];
+      betDecreased = tb < currentBet;
     }
+
+    bet = b;
+    coinValueValueIndex = cvvi;
 
     betValueTool.valueText.text = bet;
     coinValueTool.valueText.text = '€' + coinValueValues[coinValueValueIndex].toFixed(2);
@@ -1287,14 +1303,26 @@ function initBetWindow() {
   totalBetTool.btnMinus.on('pointerdown', onBtnTotalBetMinus);
 
   onBtnTotalBetPlus = function() {
-    if (bet === 10) {
-      if (coinValueValueIndex < coinValueValues.length - 1) {
-        coinValueValueIndex++;
-        bet = 1;
+    let betIncreased = false;
+
+    let b = bet, cvvi = coinValueValueIndex, tb;
+    while (!betIncreased && (b < 10 || cvvi < coinValueValues.length - 1)) {
+      if (b === 10) {
+        if (cvvi < coinValueValues.length - 1) {
+          cvvi++;
+          b = 1;
+        }
+      } else {
+        b++;
       }
-    } else {
-      bet++;
+
+      tb = b * 10 * coinValueValues[cvvi];
+      const currentBet = bet * 10 * coinValueValues[coinValueValueIndex];
+      betIncreased = tb > currentBet;
     }
+
+    bet = b;
+    coinValueValueIndex = cvvi;
 
     betValueTool.valueText.text = bet;
     coinValueTool.valueText.text = '€' + coinValueValues[coinValueValueIndex].toFixed(2);
