@@ -535,6 +535,7 @@ let stopCommandGiven = false;
 function play() {
   if (reels.active) {
     stopCommandGiven = true;
+    autoplay = false;
 
     if (betResponse) {
       reels.onStopCommandFns.forEach((fn) => fn());
