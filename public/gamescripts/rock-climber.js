@@ -16,7 +16,7 @@ let bet = 1;
 const coinValueValues = [0.01, 0.03, 0.10, 0.20, 0.50];
 let coinValueValueIndex = 0;
 let balance = 0;
-let betResponse = false;
+let betResponse = null;
 
 const symbolsCount = 8;
 const spinTime = 350;
