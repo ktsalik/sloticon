@@ -47,8 +47,84 @@ const assetsManifest = {
           srcs: `${assetsUrl}main_game/screen.png`,
         },
         {
-          name: 'logo',
-          srcs: `${assetsUrl}main_game/ui/logo_small.png`,
+          name: 'logo_104',
+          srcs: `${assetsUrl}animations/logo/logo_104.png`,
+        },
+        {
+          name: 'logo_105',
+          srcs: `${assetsUrl}animations/logo/logo_105.png`,
+        },
+        {
+          name: 'logo_106',
+          srcs: `${assetsUrl}animations/logo/logo_106.png`,
+        },
+        {
+          name: 'logo_107',
+          srcs: `${assetsUrl}animations/logo/logo_107.png`,
+        },
+        {
+          name: 'logo_108',
+          srcs: `${assetsUrl}animations/logo/logo_108.png`,
+        },
+        {
+          name: 'logo_109',
+          srcs: `${assetsUrl}animations/logo/logo_109.png`,
+        },
+        {
+          name: 'logo_110',
+          srcs: `${assetsUrl}animations/logo/logo_110.png`,
+        },
+        {
+          name: 'logo_111',
+          srcs: `${assetsUrl}animations/logo/logo_111.png`,
+        },
+        {
+          name: 'logo_112',
+          srcs: `${assetsUrl}animations/logo/logo_112.png`,
+        },
+        {
+          name: 'logo_113',
+          srcs: `${assetsUrl}animations/logo/logo_113.png`,
+        },
+        {
+          name: 'logo_114',
+          srcs: `${assetsUrl}animations/logo/logo_114.png`,
+        },
+        {
+          name: 'logo_115',
+          srcs: `${assetsUrl}animations/logo/logo_115.png`,
+        },
+        {
+          name: 'logo_116',
+          srcs: `${assetsUrl}animations/logo/logo_116.png`,
+        },
+        {
+          name: 'logo_117',
+          srcs: `${assetsUrl}animations/logo/logo_117.png`,
+        },
+        {
+          name: 'logo_118',
+          srcs: `${assetsUrl}animations/logo/logo_118.png`,
+        },
+        {
+          name: 'logo_119',
+          srcs: `${assetsUrl}animations/logo/logo_119.png`,
+        },
+        {
+          name: 'logo_120',
+          srcs: `${assetsUrl}animations/logo/logo_120.png`,
+        },
+        {
+          name: 'logo_121',
+          srcs: `${assetsUrl}animations/logo/logo_121.png`,
+        },
+        {
+          name: 'logo_122',
+          srcs: `${assetsUrl}animations/logo/logo_122.png`,
+        },
+        {
+          name: 'logo_123',
+          srcs: `${assetsUrl}animations/logo/logo_123.png`,
         },
         {
           name: 'spin-icon',
@@ -503,6 +579,11 @@ Promise.all([uiAssetsLoadPromise, symbolsAssetsLoadPromise]).then(() => {
   init();
 });
 
+const logoAnimationFramesIds = [];
+for (let i = 104; i <= 123; i++) {
+  logoAnimationFramesIds.push('logo_' + i);
+}
+
 const symbolWinEffectFramesIds = [];
 for (let i = 87; i <= 136; i++) {
   symbolWinEffectFramesIds.push('symbol-win-effect-' + i);
@@ -608,11 +689,18 @@ function init() {
   reelsBackground.z = 1;
   stage.addChild(reelsBackground);
 
-  const logo = PIXI.Sprite.from('logo');
+  const logo = PIXI.AnimatedSprite.fromFrames(logoAnimationFramesIds);
   logo.anchor.set(0.5, 0);
-  logo.scale.set(0.7, 0.7);
   logo.x = 1280 / 2;
   logo.z = 6;
+  logo.loop = false;
+  logo.animationSpeed = 0.3;
+  logo.play();
+  logo.onComplete = () => {
+    setTimeout(() => {
+      logo.gotoAndPlay(0);
+    }, 5000);
+  };
   stage.addChild(logo);
 
   const characterAnimation = PIXI.AnimatedSprite.fromFrames(characterIdleAnimationFramesIds);

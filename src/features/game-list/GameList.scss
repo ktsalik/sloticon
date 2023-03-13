@@ -7,29 +7,41 @@
   justify-content: center;
   align-items: center;
 
-  .game {
+  .list {
     display: flex;
-    flex-direction: column;
-    align-items: center;
 
-    .logo {
-      width: calc(300px - 20px - 20px);
-      max-width: calc(100% - 20px - 20px);
-      padding: 0 20px;
-    }
+    .game {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 50px;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: $component-background-color;
+      box-shadow: $component-box-shadow;
 
-    .btn-play {
-      text-decoration: none;
-      width: 150px;
-      margin-top: 30px;
-      padding: 10px 0;
-      border-radius: 4px;
-      background-color: $button-background-color;
-      text-align: center;
-      font-weight: bold;
-      color: $button-text-color;
-      box-shadow: $button-box-shadow;
-      cursor: pointer;
+      .logo {
+        height: 100px;
+      }
+
+      span {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      .btn-play {
+        text-decoration: none;
+        width: 150px;
+        margin-top: 10px;
+        padding: 10px 0;
+        border-radius: 4px;
+        background-color: $button-background-color;
+        text-align: center;
+        font-weight: bold;
+        color: $button-text-color;
+        box-shadow: $button-box-shadow;
+        cursor: pointer;
+      }
     }
   }
 }
