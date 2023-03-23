@@ -21,7 +21,7 @@ const GameList = (props) => {
           </Link>
         </div>
 
-        <div className="game">
+        {/* <div className="game">
           <img className="logo" src={rockClimberLogo} />
           
           <span>Rock Climber</span>
@@ -29,7 +29,7 @@ const GameList = (props) => {
           <Link to="play/rock-climber" className="btn-play">
             Play
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );

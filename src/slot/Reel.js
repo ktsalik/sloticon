@@ -5,6 +5,7 @@ const Reel = function({
   positions,
   spinValues,
   speed,
+  useBlurredSymbols,
   bounceDepthPerc,
   bounceDuration,
   symbolMargin,
@@ -24,13 +25,13 @@ const Reel = function({
   this.stopping = false;
   this.symbolMargin = symbolMargin;
   this.speed = speed;
-  this.accelerating = false;
   this.bounceDepthPerc = bounceDepthPerc;
   this.bounceDuration = bounceDuration;
   this.stopFns = [];
   this.startFns = [];
   this.maskPaddingX = maskPaddingX || 0;
   this.maskPaddingY = maskPaddingY || 0;
+  this.useBlurredSymbols = useBlurredSymbols || false;
 
   this.container.mask = this.mask;
 
@@ -55,20 +56,32 @@ Reel.prototype.render = function() {
   for (var i = 0; i < _this.symbols.length; i++) {
     var symbol = _this.symbols[i];
     symbol.anchor.set(0.5, 0.5);
+    let symbolWidth = 0, symbolHeight = 0;
 
     if (_this.values[i]) {
-      if (this.rolling && !this.accelerating) {
-        symbol.texture = PIXI.Texture.from('symbol-' + _this.values[i] + '-blurred');
+      if (this.rolling) {
+        if (this.useBlurredSymbols) {
+          symbol.texture = PIXI.Texture.from('symbol-' + _this.values[i] + '-blurred');
+        } else {
+          symbol.texture = PIXI.Texture.from('symbol-' + _this.values[i]);
+        }
       } else {
         symbol.texture = PIXI.Texture.from('symbol-' + _this.values[i]);
       }
+
+      symbolWidth = symbol.width;
+      symbolHeight = symbol.height;
     } else {
       symbol.texture = PIXI.Texture.EMPTY;
     }
 
-    symbol.x = symbol.width / 2;
-    symbol.y = ((symbol.height + this.symbolMargin) * (i - 1)) + (0 + _this.offset);
-    symbol.y += symbol.height / 2;
+    if (symbol.hide) {
+      symbol.texture = PIXI.Texture.EMPTY;
+    }
+
+    symbol.x = symbolWidth / 2;
+    symbol.y = ((symbolHeight + this.symbolMargin) * (i - 1)) + (0 + _this.offset);
+    symbol.y += symbolHeight / 2;
   }
 
   if (this.rolling) {

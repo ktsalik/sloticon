@@ -1497,4 +1497,7 @@ window.renderer = renderer;
 window.stage = stage;
 window.reels = reels;
 
-return renderer.view;
+return {
+  view: renderer.view,
+  ticker: PIXI.Ticker.shared,
+};
