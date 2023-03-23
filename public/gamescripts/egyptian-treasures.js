@@ -173,6 +173,55 @@ for (let i = 0; i < symbolsCount; i++) {
   }
 }
 
+const coinAnimationFramesIds = [];
+for (let i = 1; i <= 19; i++) {
+  game.addResource({
+    name: 'coin-' + i,
+    source: `/data/coin/coin_${(i <= 9 ? '0' : '') + i}.png`,
+  });
+
+  coinAnimationFramesIds.push('coin-' + i);
+}
+
+let keepThrowingCoins = true;
+async function throwCoins(stage) {
+  const coins = [];
+  for (let i = 0; i < 35 && keepThrowingCoins; i++) {
+    const coin = PIXI.AnimatedSprite.fromFrames(coinAnimationFramesIds);
+    coin.x = 1280 / 2;
+    coin.y = 785;
+    coin.anchor.set(0.5, 0.5);
+    coin.scale.set(0.25, 0.25);
+    stage.addChild(coin);
+    coin.play();
+    const coinMovementTimeline = gsap.timeline();
+    let moveXStep = 50 + Math.random() * 100;
+    if (Math.random() < 0.5) {
+      moveXStep = -moveXStep;
+    }
+    coinMovementTimeline.to(coin, {
+      y: 600,
+      duration: 0.5,
+      ease: 'power3.easeOut',
+    });
+    coinMovementTimeline.to(coin, {
+      y: 1000,
+      duration: 0.8,
+      ease: 'power1.easeIn',
+    });
+    gsap.to(coin, {
+      x: coin.x + moveXStep,
+      rotation: 7,
+      duration: 1.5,
+      onComplete: () => {
+        coin.destroy();
+      }, 
+    });
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+}
+
 game.onInit(() => {
   const background = game.addSprite('background');
   background.z = 2;
@@ -197,6 +246,9 @@ game.onInit(() => {
   game.ticker.add((delta) => {
     if (game.betResponse && game.betResponse.isWin && !game.reelsController.reelsActive) {
       if (!winDisplayed) {
+        keepThrowingCoins = true;
+        throwCoins(game.stage);
+
         game.soundAssets.coinsEffect.volume = 0.4;
         game.soundAssets.coinsEffect.currentTime = 0;
         game.soundAssets.coinsEffect.play();
@@ -205,6 +257,7 @@ game.onInit(() => {
         game.oncePlay(() => {
           game.soundAssets.coinsEffect.pause();
           winDisplayed = false;
+          keepThrowingCoins = false;
         });
       }
       if (!lineIsBeingHighlighted) {
