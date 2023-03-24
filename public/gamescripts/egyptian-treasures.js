@@ -51,39 +51,42 @@ for (let i = 1; i <= symbolsCount; i++) {
 let keepThrowingCoins = true;
 async function throwCoins(stage) {
   const coins = [];
-  for (let i = 0; i < 35 && keepThrowingCoins; i++) {
+  for (let i = 0; i < 50 && keepThrowingCoins; i++) {
     const coin = PIXI.AnimatedSprite.fromFrames(PIXI.Assets.cache.get('coin-animation-spritesheet').data.animations.coin);
     coin.x = 1280 / 2;
-    coin.y = 785;
+    coin.y = 788;
     coin.anchor.set(0.5, 0.5);
     coin.scale.set(0.25, 0.25);
     stage.addChild(coin);
     coin.play();
     const coinMovementTimeline = gsap.timeline();
-    let moveXStep = 50 + Math.random() * 100;
-    if (Math.random() < 0.5) {
+    let moveXStep = 50 + Math.random() * 80;
+    // if (Math.random() < 0.5) {
+    //   moveXStep = -moveXStep;
+    // }
+    if (i % 2 === 0) {
       moveXStep = -moveXStep;
     }
     coinMovementTimeline.to(coin, {
-      y: 600,
-      duration: 0.5,
-      ease: 'power3.easeOut',
+      y: 650,
+      duration: 0.4,
+      ease: 'back.easeOut',
     });
     coinMovementTimeline.to(coin, {
       y: 1000,
-      duration: 0.8,
-      ease: 'power1.easeIn',
+      duration: 0.7,
+      ease: 'expo.easeIn',
     });
     gsap.to(coin, {
       x: coin.x + moveXStep,
-      rotation: 7,
-      duration: 1.5,
+      rotation: 3,
+      duration: 0.4 + 0.7,
       onComplete: () => {
         coin.destroy();
       }, 
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 50));
   }
 }
 window.PIXI = PIXI;
