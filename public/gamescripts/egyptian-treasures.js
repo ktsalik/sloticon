@@ -20,174 +20,39 @@ const game = new Game({
 const assetsUrl = `/data/${gameId}/`;
 game.addResource([
   {
-    name: 'spin-icon',
-    source: `/data/spin-icon.png`,
-  },
-  {
-    name: 'stop-icon',
-    source: `/data/stop-icon.png`,
-  },
-  {
-    name: 'circle-icon',
-    source: `/data/circle-icon.png`,
-  },
-  {
-    name: 'minus-icon',
-    source: `/data/minus-solid.png`,
-  },
-  {
-    name: 'plus-icon',
-    source: `/data/plus-solid.png`,
-  },
-  {
-    name: 'xmark-icon',
-    source: `/data/xmark-solid.png`,
+    name: 'controls-spritesheet',
+    source: `/data/controls-spritesheet.json`,
   },
   {
     name: 'background',
     source: `${assetsUrl}Back.jpg`,
   },
   {
-    name: 'symbol-1',
-    source: `${assetsUrl}symbol1.png`,
+    name: 'symbols-spritesheet',
+    source: `${assetsUrl}symbols-spritesheet.json`,
   },
   {
-    name: 'symbol-2',
-    source: `${assetsUrl}symbol2.png`,
+    name: 'symbol-frames-spritesheet',
+    source: `${assetsUrl}symbol-frames-spritesheet.json`,
   },
   {
-    name: 'symbol-3',
-    source: `${assetsUrl}symbol3.png`,
-  },
-  {
-    name: 'symbol-4',
-    source: `${assetsUrl}symbol4.png`,
-  },
-  {
-    name: 'symbol-5',
-    source: `${assetsUrl}symbol5.png`,
-  },
-  {
-    name: 'symbol-6',
-    source: `${assetsUrl}symbol6.png`,
-  },
-  {
-    name: 'symbol-7',
-    source: `${assetsUrl}symbol7.png`,
-  },
-  {
-    name: 'symbol-8',
-    source: `${assetsUrl}symbol8.png`,
-  },
-  {
-    name: 'symbol-9',
-    source: `${assetsUrl}symbol9.png`,
-  },
-  {
-    name: 'symbol-10',
-    source: `${assetsUrl}symbol10.png`,
-  },
-  {
-    name: 'symbol-11',
-    source: `${assetsUrl}symbol11.png`,
-  },
-  {
-    name: 'symbol-12',
-    source: `${assetsUrl}symbol12.png`,
-  },
-  {
-    name: 'symbol-1-blurred',
-    source: `${assetsUrl}symbol1-blurred.png`,
-  },
-  {
-    name: 'symbol-2-blurred',
-    source: `${assetsUrl}symbol2-blurred.png`,
-  },
-  {
-    name: 'symbol-3-blurred',
-    source: `${assetsUrl}symbol3-blurred.png`,
-  },
-  {
-    name: 'symbol-4-blurred',
-    source: `${assetsUrl}symbol4-blurred.png`,
-  },
-  {
-    name: 'symbol-5-blurred',
-    source: `${assetsUrl}symbol5-blurred.png`,
-  },
-  {
-    name: 'symbol-6-blurred',
-    source: `${assetsUrl}symbol6-blurred.png`,
-  },
-  {
-    name: 'symbol-7-blurred',
-    source: `${assetsUrl}symbol7-blurred.png`,
-  },
-  {
-    name: 'symbol-8-blurred',
-    source: `${assetsUrl}symbol8-blurred.png`,
-  },
-  {
-    name: 'symbol-9-blurred',
-    source: `${assetsUrl}symbol9-blurred.png`,
-  },
-  {
-    name: 'symbol-10-blurred',
-    source: `${assetsUrl}symbol10-blurred.png`,
-  },
-  {
-    name: 'symbol-11-blurred',
-    source: `${assetsUrl}symbol11-blurred.png`,
-  },
-  {
-    name: 'symbol-12-blurred',
-    source: `${assetsUrl}symbol12-blurred.png`,
+    name: 'coin-animation-spritesheet',
+    source: `/data/coin-animation-spritesheet.json`,
   },
 ]);
 
 for (let i = 1; i <= symbolsCount; i++) {
-  for (let j = 0; j <= 32; j++) {
-    game.addResource({
-      name: 'symbol-' + i + '-animation-' + j,
-      source: `${assetsUrl}symbol${i}/symbol${i}_${(j <= 9 ? '0' : '') + j}.png`,
-    });
-  }
-}
-
-for (let i = 1; i <= 20; i++) {
   game.addResource({
-    name: 'symbol-frame-' + i,
-    source: `${assetsUrl}symbol-frames/Frame${(i <= 9 ? '0' : '') + i}.png`,
+    name: 'symbol-' + i + '-animation-spritesheet',
+    source: `${assetsUrl}symbol-${i}-animation-spritesheet.json`,
   });
-}
-game.addResource({
-  name: 'symbol-frame-back',
-  source: `${assetsUrl}symbol-frames/Frames back.png`,
-});
-
-const symbolsAnimationFramesIds = [];
-for (let i = 0; i < symbolsCount; i++) {
-  symbolsAnimationFramesIds[i] = [];
-  for (let j = 0; j <= 32; j++) {
-    symbolsAnimationFramesIds[i].push('symbol-' + (i + 1) + '-animation-' + j);
-  }
-}
-
-const coinAnimationFramesIds = [];
-for (let i = 1; i <= 19; i++) {
-  game.addResource({
-    name: 'coin-' + i,
-    source: `/data/coin/coin_${(i <= 9 ? '0' : '') + i}.png`,
-  });
-
-  coinAnimationFramesIds.push('coin-' + i);
 }
 
 let keepThrowingCoins = true;
 async function throwCoins(stage) {
   const coins = [];
   for (let i = 0; i < 35 && keepThrowingCoins; i++) {
-    const coin = PIXI.AnimatedSprite.fromFrames(coinAnimationFramesIds);
+    const coin = PIXI.AnimatedSprite.fromFrames(PIXI.Assets.cache.get('coin-animation-spritesheet').data.animations.coin);
     coin.x = 1280 / 2;
     coin.y = 785;
     coin.anchor.set(0.5, 0.5);
@@ -221,7 +86,7 @@ async function throwCoins(stage) {
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
 }
-
+window.PIXI = PIXI;
 game.onInit(() => {
   const background = game.addSprite('background');
   background.z = 2;
@@ -269,12 +134,7 @@ game.onInit(() => {
                   const symbol = game.reelsController.reels[i].symbols[j];
                   const symbolValue = game.reelsController.reels[i].values[j];
 
-                  // const symbolBackground = PIXI.Sprite.from('symbol-frame-back');
-                  // symbolBackground.anchor.set(0.5, 0.5);
-                  // symbol.addChild(symbolBackground);
-                  // linesHighlightComponents.push(symbolBackground);
-
-                  const animation = PIXI.AnimatedSprite.fromFrames(symbolsAnimationFramesIds[symbolValue - 1]);
+                  const animation = PIXI.AnimatedSprite.fromFrames(PIXI.Assets.cache.get('symbol-' + symbolValue + '-animation-spritesheet').data.animations['symbol' + symbolValue]);
                   animation.anchor.set(0.5, 0.5);
                   animation.loop = false;
                   animation.animationSpeed = 0.3;
@@ -284,7 +144,6 @@ game.onInit(() => {
                     setTimeout(() => {
                       if (!animation.destroyed) {
                         animation.destroy();
-                        // symbolBackground.destroy();
                         symbolFrame.destroy();
                       }
                     });
@@ -294,7 +153,6 @@ game.onInit(() => {
                     setTimeout(() => {
                       if (!animation.destroyed) {
                         animation.destroy();
-                        // symbolBackground.destroy();
                         symbolFrame.destroy();
                       }
                     });
@@ -355,14 +213,15 @@ const loadingAssetsBundle = [
     name: 'loading-background',
     srcs: `${assetsUrl}Loading/Loading screen.jpg`,
   },
+  {
+    name: 'loading-bar-spritesheet',
+    srcs: `${assetsUrl}Loading/loading-bar-spritesheet.json`,
+  },
+  {
+    name: 'loading-text-spritesheet',
+    srcs: `${assetsUrl}Loading/loading-text-spritesheet.json`,
+  },
 ];
-
-for (let i = 0; i <= 23; i++) {
-  loadingAssetsBundle.push({
-    name: 'loading-bar-' + i,
-    srcs: `${assetsUrl}Loading/LoadingBar/LoadingBar_${(i <= 9 ? '0' : '') + i}.png`,
-  });
-}
 
 const ticker = new PIXI.Ticker();
 const container = new PIXI.Container();
@@ -390,13 +249,21 @@ PIXI.Assets.loadBundle(gameId + '-loading-bundle').then(() => {
   const background = PIXI.Sprite.from('loading-background');
   container.addChild(background);
 
-  const loadingBar = PIXI.Sprite.from('loading-bar-0');
+  const loadingBar = PIXI.Sprite.from('LoadingBar_00.png');
   loadingBar.x = (1280 - loadingBar.width) / 2;
   loadingBar.y = 700;
   container.addChild(loadingBar);
+  
+  const loadingText = PIXI.AnimatedSprite.fromFrames(PIXI.Assets.cache.get('loading-text-spritesheet').data.animations.Loading);
+  loadingText.animationSpeed = 0.3;
+  loadingText.x = (1280 - loadingText.width) / 2;
+  loadingText.y = 850;
+  container.addChild(loadingText);
+  loadingText.play();
 
   game.onLoading((progress) => {
-    loadingBar.texture = PIXI.Texture.from('loading-bar-' + (Math.round(progress * 23)));
+    const progressFrame = (Math.round(progress * 23));
+    loadingBar.texture = PIXI.Texture.from('LoadingBar_' + (progressFrame <= 9 ? '0' : '') + progressFrame + '.png');
     
     if (progress >= 1) {
       ticker.stop();
