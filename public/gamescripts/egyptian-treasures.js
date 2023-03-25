@@ -39,6 +39,10 @@ game.addResource([
     name: 'coin-animation-spritesheet',
     source: `/data/coin-animation-spritesheet.json`,
   },
+  {
+    name: 'logo-spritesheet',
+    source: `${assetsUrl}logo-spritesheet.json`,
+  },
 ]);
 
 for (let i = 1; i <= symbolsCount; i++) {
@@ -59,24 +63,23 @@ async function throwCoins(stage) {
     coin.scale.set(0.25, 0.25);
     stage.addChild(coin);
     coin.play();
-    const coinMovementTimeline = gsap.timeline();
     let moveXStep = 50 + Math.random() * 80;
-    // if (Math.random() < 0.5) {
-    //   moveXStep = -moveXStep;
-    // }
-    if (i % 2 === 0) {
-      moveXStep = -moveXStep;
-    }
+    const coinMovementTimeline = gsap.timeline();
     coinMovementTimeline.to(coin, {
       y: 650,
       duration: 0.4,
       ease: 'back.easeOut',
     });
+
     coinMovementTimeline.to(coin, {
       y: 1000,
       duration: 0.7,
       ease: 'expo.easeIn',
     });
+
+    if (i % 2 === 0) {
+      moveXStep = -moveXStep;
+    }
     gsap.to(coin, {
       x: coin.x + moveXStep,
       rotation: 3,
@@ -89,10 +92,31 @@ async function throwCoins(stage) {
     await new Promise((resolve) => setTimeout(resolve, 50));
   }
 }
-window.PIXI = PIXI;
+
 game.onInit(() => {
   const background = game.addSprite('background');
   background.z = 2;
+
+  const logoBackground = game.addSprite('logo-back');
+  logoBackground.x = (1280 - logoBackground.width) / 2;
+  logoBackground.x += 15;
+  logoBackground.y = 45;
+  logoBackground.z = 5;
+
+  const logoAnimation = PIXI.AnimatedSprite.fromFrames(PIXI.Assets.cache.get('logo-spritesheet').data.animations.logo_animation);
+  logoAnimation.x = (1280 - logoAnimation.width) / 2;
+  logoAnimation.y = 10;
+  logoAnimation.z = 6;
+  logoAnimation.animationSpeed = 0.3;
+  logoAnimation.play();
+  game.stage.addChild(logoAnimation);
+
+  const logo = game.addSprite('logo');
+  logo.x = (1280 - logo.width) / 2;
+  logo.x += 15;
+  logo.y = 50;
+  logo.z = 7;
+
   const reels = game.reelsController.reels;
 
   reels.forEach((reel, i) => {
@@ -179,7 +203,7 @@ game.onInit(() => {
 
       linesHighlightTime += delta * 16.667;
 
-      if (linesHighlightTime >= 2000) {
+      if (linesHighlightTime >= 1900) {
         if (++lineToHighlight > game.betResponse.win.length) {
           lineToHighlight = 0;
         }
