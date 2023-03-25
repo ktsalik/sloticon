@@ -160,6 +160,17 @@ game.onInit(() => {
                 if (line.map[i][j] === 1) {
                   const symbol = game.reelsController.reels[i].symbols[j];
                   const symbolValue = game.reelsController.reels[i].values[j];
+                  let symbolFrame;
+
+                  if (lineToHighlight === 0) {
+                    symbolFrame = PIXI.Sprite.from('symbol-frame-back');
+                    symbolFrame.anchor.set(0.5, 0.5);
+                    symbolFrame.alpha = 0;
+                    symbol.addChild(symbolFrame);
+                    linesHighlightComponents.push(symbolFrame);
+
+                    gsap.to(symbolFrame, { alpha: 1, duration: 1, ease: 'linear' });
+                  }
 
                   const animation = PIXI.AnimatedSprite.fromFrames(PIXI.Assets.cache.get('symbol-' + symbolValue + '-animation-spritesheet').data.animations['symbol' + symbolValue]);
                   animation.anchor.set(0.5, 0.5);
@@ -187,11 +198,13 @@ game.onInit(() => {
                   symbol.hide = true;
                   animation.play();
                   linesHighlightComponents.push(animation);
-
-                  const symbolFrame = PIXI.Sprite.from('symbol-frame-' + line.number);
-                  symbolFrame.anchor.set(0.5, 0.5);
-                  symbol.addChild(symbolFrame);
-                  linesHighlightComponents.push(symbolFrame);
+                  
+                  if (lineToHighlight > 0) {
+                    symbolFrame = PIXI.Sprite.from('symbol-frame-' + line.number);
+                    symbolFrame.anchor.set(0.5, 0.5);
+                    symbol.addChild(symbolFrame);
+                    linesHighlightComponents.push(symbolFrame);
+                  }
                 }
               }
             }
