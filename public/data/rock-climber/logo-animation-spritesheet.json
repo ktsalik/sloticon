@@ -1,0 +1,175 @@
+{"frames": {
+
+"logo_104.png":
+{
+	"frame": {"x":0,"y":0,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_105.png":
+{
+	"frame": {"x":310,"y":0,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_106.png":
+{
+	"frame": {"x":620,"y":0,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_107.png":
+{
+	"frame": {"x":0,"y":120,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_108.png":
+{
+	"frame": {"x":310,"y":120,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_109.png":
+{
+	"frame": {"x":620,"y":120,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_110.png":
+{
+	"frame": {"x":0,"y":240,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_111.png":
+{
+	"frame": {"x":310,"y":240,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_112.png":
+{
+	"frame": {"x":620,"y":240,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_113.png":
+{
+	"frame": {"x":0,"y":360,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_114.png":
+{
+	"frame": {"x":310,"y":360,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_115.png":
+{
+	"frame": {"x":620,"y":360,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_116.png":
+{
+	"frame": {"x":0,"y":480,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_117.png":
+{
+	"frame": {"x":310,"y":480,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_118.png":
+{
+	"frame": {"x":620,"y":480,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_119.png":
+{
+	"frame": {"x":0,"y":600,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_120.png":
+{
+	"frame": {"x":310,"y":600,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_121.png":
+{
+	"frame": {"x":620,"y":600,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_122.png":
+{
+	"frame": {"x":0,"y":720,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+},
+"logo_123.png":
+{
+	"frame": {"x":310,"y":720,"w":310,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":310,"h":120},
+	"sourceSize": {"w":310,"h":120}
+}},
+"animations": {
+	"logo": ["logo_104.png","logo_105.png","logo_106.png","logo_107.png","logo_108.png","logo_109.png","logo_110.png","logo_111.png","logo_112.png","logo_113.png","logo_114.png","logo_115.png","logo_116.png","logo_117.png","logo_118.png","logo_119.png","logo_120.png","logo_121.png","logo_122.png","logo_123.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "logo-animation-spritesheet.png",
+	"format": "RGBA8888",
+	"size": {"w":930,"h":840},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:66eb635113387642e8eaf953b9be85e8:304aaf2521dedfcf9e9bdef256b1bb07:5e005c1ac2206629b9c8c21297829fcb$"
+}
+}

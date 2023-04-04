@@ -423,10 +423,12 @@ class SlotGame {
 
   destroy() {
     this.ticker.stop();
-    this.onDestroyFns.forEach((fn) => fn());
+    this.stage.destroy();
     this.socket.off('gamestate', this.onNetworkGamestate);
     this.socket.off('bet', this.onNetworkBet);
     window.removeEventListener('keypress', this.onActionButtonPressed);
+    this.onDestroyFns.forEach((fn) => fn());
+    PIXI.Assets.unloadBundle(this.id);
   }
 
   get coinValue() {
