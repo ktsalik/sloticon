@@ -43,6 +43,10 @@ game.addResource([
     name: 'logo-spritesheet',
     source: `${assetsUrl}logo-spritesheet.json`,
   },
+  {
+    name: 'misc-spritesheet',
+    source: `${assetsUrl}misc-spritesheet.json`,
+  }
 ]);
 
 for (let i = 1; i <= symbolsCount; i++) {
@@ -116,6 +120,31 @@ game.onInit(() => {
   logo.x += 15;
   logo.y = 50;
   logo.z = 7;
+
+  const btnExit = game.addButton([
+    'back_button1.png',
+    'back_button2.png',
+    'back_button3.png',
+    'back_button4.png',
+  ], () => {
+    goToLobby();
+  });
+  btnExit.x = 108;
+  btnExit.y = 75;
+  btnExit.z = 6;
+
+  const btnToggleMusic = game.addButton([
+    'music_button1.png',
+    'music_button2.png',
+    'music_button3.png',
+    'music_button4.png',
+  ], () => {
+    themeSoundtrack.muted = !themeSoundtrack.muted;
+    btnToggleMusic.disabled = themeSoundtrack.muted;
+  });
+  btnToggleMusic.x = 1200;
+  btnToggleMusic.y = 75;
+  btnToggleMusic.z = 6;
 
   const reels = game.reelsController.reels;
 

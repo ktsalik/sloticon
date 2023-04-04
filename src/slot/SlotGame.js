@@ -362,14 +362,61 @@ class SlotGame {
     }
   }
 
-  addSprite(resourceKey, addToStage = true) {
+  addSprite(resourceKey) {
     const sprite = PIXI.Sprite.from(resourceKey);
 
     this.sprites.push(sprite);
+    this.stage.addChild(sprite);
 
-    if (addToStage) {
-      this.stage.addChild(sprite);
-    }
+    return sprite;
+  }
+
+  addButton(resources, onClick) {
+    const sprite = PIXI.Sprite.from(resources[0]);
+    sprite.interactive = true;
+
+    sprite.on('pointerenter', () => {
+      if (sprite.disabled) {
+        sprite.texture = PIXI.Texture.from(resources[3]);
+      } else {
+        sprite.texture = PIXI.Texture.from(resources[1]);
+      }
+    });
+
+    let isDown = false;
+    sprite.on('pointerdown', () => {
+      if (sprite.disabled) {
+        sprite.texture = PIXI.Texture.from(resources[3]);
+      } else {
+        sprite.texture = PIXI.Texture.from(resources[2]);
+      }
+      isDown = true;
+    });
+
+    sprite.on('pointerleave', () => {
+      if (sprite.disabled) {
+        sprite.texture = PIXI.Texture.from(resources[3]);
+      } else {
+        sprite.texture = PIXI.Texture.from(resources[0]);
+      }
+    });
+
+    sprite.on('pointerup', () => {
+      if (isDown) {
+        onClick();
+
+        if (sprite.disabled) {
+          sprite.texture = PIXI.Texture.from(resources[3]);
+        } else {
+          sprite.texture = PIXI.Texture.from(resources[0]);
+        }
+        
+        isDown = false;
+      }
+    });
+
+    this.sprites.push(sprite);
+    this.stage.addChild(sprite);
 
     return sprite;
   }
