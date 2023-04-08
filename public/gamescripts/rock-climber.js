@@ -13,7 +13,7 @@ const game = new Game({
   symbolMargin: 20,
   maskPaddingX: 13,
   maskPaddingY: 14,
-  reelsSpeed: 0.17,
+  reelsSpeed: 0.16,
   spinTimeBetweenReels: 135,
 }, socket);
 
