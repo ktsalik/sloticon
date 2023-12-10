@@ -10,19 +10,19 @@
 },
 "minus-icon":
 {
-	"frame": {"x":500,"y":360,"w":448,"h":512},
+	"frame": {"x":500,"y":360,"w":520,"h":520},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":448,"h":512},
-	"sourceSize": {"w":448,"h":512}
+	"spriteSourceSize": {"x":0,"y":0,"w":520,"h":520},
+	"sourceSize": {"w":520,"h":520}
 },
 "plus-icon":
 {
-	"frame": {"x":0,"y":872,"w":448,"h":512},
+	"frame": {"x":0,"y":872,"w":520,"h":520},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":448,"h":512},
-	"sourceSize": {"w":448,"h":512}
+	"spriteSourceSize": {"x":0,"y":0,"w":520,"h":520},
+	"sourceSize": {"w":520,"h":520}
 },
 "spin-icon":
 {
@@ -42,11 +42,11 @@
 },
 "xmark-icon":
 {
-	"frame": {"x":448,"y":872,"w":320,"h":512},
+	"frame": {"x":448,"y":872,"w":520,"h":520},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":320,"h":512},
-	"sourceSize": {"w":320,"h":512}
+	"spriteSourceSize": {"x":0,"y":0,"w":520,"h":520},
+	"sourceSize": {"w":520,"h":520}
 }},
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
