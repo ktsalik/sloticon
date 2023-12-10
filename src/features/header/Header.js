@@ -28,7 +28,7 @@ const Header = (props) => {
     <div className="Header">
       <div className="brand">
         <FontAwesomeIcon icon={faCrown} size="2x" className="logo"></FontAwesomeIcon>
-        <span className="name">Sloticon</span>
+        <span className="name">SLV SlotChamps</span>
       </div>
 
       <div className={`menu ${!loggedIn ? 'd-none' : ''}`}>
