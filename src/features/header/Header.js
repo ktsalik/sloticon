@@ -22,7 +22,7 @@ const Header = (props) => {
     socket.on('balance', (balance) => {
       store.dispatch(lobbySlice.actions.updateBalance(balance));
     });
-  }, []);
+  },);
 
   return (
     <div className="Header">
