@@ -33,12 +33,15 @@
     "dev": "next dev",
     "build": "turbo build",
     "start": "next start",
-    "lint": "next lint",
-    "test": "jest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "test": "jest"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "plugin:prettier/recommended"
     ]
   },
   "browserslist": {
@@ -53,8 +56,9 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "npm@10.1.0",
+  "packageManager": "npm@7.24.2",
   "devDependencies": {
-    "@babel/preset-env": "^7.23.5"
+    "@babel/preset-env": "^7.23.5",
+    "prettier": "^3.1.1"
   }
 }
