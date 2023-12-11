@@ -1,6 +1,6 @@
 {
-  "name": "sloticon-client",
-  "version": "0.1.0",
+  "name": "slot-champs",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
