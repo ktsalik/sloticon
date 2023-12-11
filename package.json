@@ -31,10 +31,10 @@
         "turboStylesheet": true,
         "turboImages": true,
         "turboLinks": true
-     },
+      },
       "features": {
         "lazyFrames": true,
-        "lazyImages": true,  
+        "lazyImages": true,
         "loading": true,
         "prefetch": true,
         "sourceMaps": true
@@ -64,5 +64,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "packageManager": "npm@10.1.0"
 }
