@@ -7,6 +7,7 @@ import Game from './features/game/Game';
 import GameList from './features/game-list/GameList';
 import { Fragment } from 'react';
 import SpeedInsights from "@vercel/speed-insights";
+import App from './App'; // Ensure 'App' is correctly imported
 
 function MyComponent() {
   return (
