@@ -24,6 +24,23 @@
     "socket.io-client": "^4.6.0",
     "web-vitals": "^2.1.4"
   },
+  "turbo": {
+    "version": "1.0.0",
+    "config": {
+      "experimental": {
+        "turboStylesheet": true,
+        "turboImages": true,
+        "turboLinks": true
+     },
+      "features": {
+        "lazyFrames": true,
+        "lazyImages": true,  
+        "loading": true,
+        "prefetch": true,
+        "sourceMaps": true
+      }
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
