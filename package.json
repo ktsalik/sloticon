@@ -51,5 +51,8 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "npm@10.1.0"
+  "packageManager": "npm@10.1.0",
+  "devDependencies": {
+    "@babel/preset-env": "^7.23.5"
+  }
 }
