@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "config": {
+    "experimental": {
+      "turboStylesheet": true,
+      "turboImages": true,
+      "turboLinks": true
+    },
+    "features": {
+      "lazyFrames": true,
+      "lazyImages": true,
+      "loading": true,
+      "prefetch": true,
+      "sourceMaps": true
+    }
+  }
+}

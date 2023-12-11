@@ -190,13 +190,13 @@ class SlotGame {
       if (this.betResponse) {
         this.reelsController.onStopCommandFns.forEach((fn) => fn());
   
-        if (this.reelsController.reels.some((r) => (r.rolling == true || r.stopping < r.positions + 1) && !(r.forceStopped || r.stoppedAutomatically))) {
+        if (this.reelsController.reels.some((r) => (r.rolling === true || r.stopping < r.positions + 1) && !(r.forceStopped || r.stoppedAutomatically))) {
           this.soundAssets.reelsRun.pause();
           new Audio(this.soundAssets.reelStop.src).play();
         }
 
         this.reelsController.reels.forEach((r, i) => {
-          if ((r.rolling == true || r.stopping < r.positions + 1) && !(r.forceStopped || r.stoppedAutomatically)) {
+          if ((r.rolling === true || r.stopping < r.positions + 1) && !(r.forceStopped || r.stoppedAutomatically)) {
             r.values = this.betResponse.reels[i].slice();
             r.offset = 0;
             r.stopping = r.positions + 1;
