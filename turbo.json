@@ -11,6 +11,13 @@
       "lazyImages": true,
       "loading": true,
       "prefetch": true,
+      "minify": true,
+      "optimizeFonts": true,
+      "optimizeImages": true,
+      "optimizeCss": true,
+      "optimizeJs": true,
+      "treeShaking": true,
+      "splitChunks": true,
       "sourceMaps": true
     }
   }
