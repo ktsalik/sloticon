@@ -6,7 +6,7 @@ import {
 import Game from './features/game/Game';
 import GameList from './features/game-list/GameList';
 import { Fragment } from 'react';
-import { SpeedInsights } from "@vercel/speed-insights";
+import SpeedInsights from "@vercel/speed-insights";
 
 function MyComponent() {
   return (
