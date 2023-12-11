@@ -12,7 +12,7 @@ function MyComponent() {
   return (
     <SpeedInsights>
       <div>
-        <SpeedInsights url="https://sloticon-realbrodiwhite.vercel.app/"/>
+        <SpeedInsights url="https://slotchamps-realbrodiwhite.vercel.app/"/>
         <h1>My Component</h1>]
       </div>
     </SpeedInsights>
