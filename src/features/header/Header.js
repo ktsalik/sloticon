@@ -28,7 +28,7 @@ const Header = (props) => {
     <div className="Header">
       <div className="brand">
         <FontAwesomeIcon icon={faCrown} size="2x" className="logo"></FontAwesomeIcon>
-        <span className="name">SLV SlotChamps</span>
+        <span className="name">SLV Slot Champs</span>
       </div>
 
       <div className={`menu ${!loggedIn ? 'd-none' : ''}`}>
@@ -36,6 +36,8 @@ const Header = (props) => {
           <button className="btn-toggle-account-menu">
             <FontAwesomeIcon icon={faUserCircle} size="2x"></FontAwesomeIcon>
             <span>{username}</span>
+            <Link to="user/account-menu" className="btn-user-account-menu">
+              
           </button>
         </div>
 
