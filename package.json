@@ -25,8 +25,7 @@
     "sass": "^1.58.1",
     "socket.io-client": "^4.6.0",
     "uuid": "^7.0.0",
-    "web-vitals": "^2.1.4",
-    "babel.plugin-proposal-private-property-in-object": "*"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
