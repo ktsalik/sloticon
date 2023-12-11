@@ -6,8 +6,17 @@ import {
 import Game from './features/game/Game';
 import GameList from './features/game-list/GameList';
 import { Fragment } from 'react';
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SpeedInsights } from "@vercel/speed-insights";
 
+function MyComponent() {
+  return (
+    <SpeedInsights>
+      <div>
+        <SpeedInsights url="https://sloticon-realbrodiwhite.vercel.app/"/>
+        <h1>My Component</h1>]
+      </div>
+    </SpeedInsights>
+  );
 function App() {
   return (
     <div className="App">
@@ -23,5 +32,5 @@ function App() {
     </div>
   );
 }
-
+}
 export default App;
