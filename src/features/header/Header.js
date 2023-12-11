@@ -36,8 +36,6 @@ const Header = (props) => {
           <button className="btn-toggle-account-menu">
             <FontAwesomeIcon icon={faUserCircle} size="2x"></FontAwesomeIcon>
             <span>{username}</span>
-            <Link to="user/account-menu" className="btn-user-account-menu">
-              
           </button>
         </div>
 
