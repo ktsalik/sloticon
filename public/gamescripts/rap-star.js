@@ -3,7 +3,7 @@ const key = localStorage.getItem('key');
 const symbolsCount = 12;
 
 const game = new Game({
-  id: 'egyptian-treasures',
+  id: 'rap-star',
   width: 1280,
   height: 960,
   reelsCount: 5,
