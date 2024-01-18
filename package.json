@@ -29,19 +29,18 @@
     "uuid": "^9.0.0",
     "web-vitals": "^3.0.0"
   },
-  "scripts": {
-    "dev": "next dev",
-    "builds": "turbo run build",
-    "start": "next start",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "test": "jest"
-    "clean": "rm -rf ./build"
-    "clean dev": "rm -rf ./build && next dev"
-    "clean start": "rm -rf ./build && next start"
+   "scripts": {
+    "dev": "yarn next dev",
+    "builds": "yarn turbo run build",
+    "start": "yarn next start",
+    "lint": "yarn eslint .",
+    "lint:fix": "yarn eslint . --fix",
+    "format": "yarn prettier --write .",
+    "test": "yarn jest",
+    "clean": "yarn rm -rf ./build",
+    "clean dev": "yarn rm -rf ./build && yarn next dev",
+    "clean start": "yarn rm -rf ./build && yarn next start",
     "all": "yarn clean && yarn lint:fix && yarn format && yarn start"
-
   },
   "eslintConfig": {
     "extends": [
