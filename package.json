@@ -31,7 +31,7 @@
   },
    "scripts": {
     "dev": "yarn next dev",
-    "builds": "yarn turbo run build",
+    "build": "yarn turbo run build",
     "start": "yarn next start",
     "lint": "yarn eslint .",
     "lint:fix": "yarn eslint . --fix",
