@@ -31,12 +31,17 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "turbo run build",
+    "builds": "turbo run build",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "test": "jest"
+    "clean": "rm -rf ./build"
+    "clean dev": "rm -rf ./build && next dev"
+    "clean start": "rm -rf ./build && next start"
+    "all": "yarn clean && yarn lint:fix && yarn format && yarn start"
+
   },
   "eslintConfig": {
     "extends": [
