@@ -30,9 +30,10 @@
     "web-vitals": "^3.0.0"
   },
    "scripts": {
+    "upgrade": "yarn upgrade"
     "dev": "yarn next dev",
     "build": "yarn turbo run build",
-    "start": "yarn next start",
+    "start": "upgrade yarn next start",
     "lint": "yarn eslint .",
     "lint:fix": "yarn eslint . --fix",
     "format": "yarn prettier --write .",
