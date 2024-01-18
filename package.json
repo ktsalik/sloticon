@@ -32,7 +32,7 @@
   "scripts": {
     "upgrade": "yarn upgrade",
     "dev": "yarn next dev",
-    "build": "yarn turbo run build",
+    "build": "upgrade yarn turbo run build",
     "start": "yarn next start",
     "lint": "yarn eslint .",
     "lint:fix": "yarn eslint . --fix",
