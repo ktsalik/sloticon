@@ -28,12 +28,12 @@
     "turbo": "^1.11.1",
     "uuid": "^9.0.0",
     "web-vitals": "^3.0.0"
-  },
-    "scripts": {
-    "upgrade": "yarn upgrade"
+   },
+  "scripts": {
+    "upgrade": "yarn upgrade",
     "dev": "yarn next dev",
     "build": "yarn turbo run build",
-    "start": "upgrade yarn next start",
+    "start": "yarn next start",
     "lint": "yarn eslint .",
     "lint:fix": "yarn eslint . --fix",
     "format": "yarn prettier --write .",
