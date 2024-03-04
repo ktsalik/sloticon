@@ -22,6 +22,7 @@
     "redux": "^4.2.1",
     "sass": "^1.58.1",
     "socket.io-client": "^4.6.0",
+    "vercel": "^33.5.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
