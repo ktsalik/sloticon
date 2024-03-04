@@ -32,7 +32,7 @@ const Header = (props) => {
           size="2x"
           className="logo"
         ></FontAwesomeIcon>
-        <span className="name">719Slots</span>
+        <span className="name">719 Slots</span>
       </div>
 
       <div className={`menu ${!loggedIn ? "d-none" : ""}`}>

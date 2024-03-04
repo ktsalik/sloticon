@@ -15,27 +15,23 @@ const Header = (props) => {
   const socket = useContext(SocketContext);
 
   useEffect(() => {
-    socket.emit("balance", {
-      key: localStorage.getItem("key"),
+    socket.emit('balance', {
+      key: localStorage.getItem('key'),
     });
 
-    socket.on("balance", (balance) => {
+    socket.on('balance', (balance) => {
       store.dispatch(lobbySlice.actions.updateBalance(balance));
     });
-  }, [socket]);
+  }, []);
 
   return (
     <div className="Header">
       <div className="brand">
-        <FontAwesomeIcon
-          icon={faCrown}
-          size="2x"
-          className="logo"
-        ></FontAwesomeIcon>
-        <span className="name">719Slots</span>
+        <FontAwesomeIcon icon={faCrown} size="2x" className="logo"></FontAwesomeIcon>
+        <span className="name">Sloticon</span>
       </div>
 
-      <div className={`menu ${!loggedIn ? "d-none" : ""}`}>
+      <div className={`menu ${!loggedIn ? 'd-none' : ''}`}>
         <div className="account">
           <button className="btn-toggle-account-menu">
             <FontAwesomeIcon icon={faUserCircle} size="2x"></FontAwesomeIcon>
@@ -48,18 +44,12 @@ const Header = (props) => {
         </button>
       </div>
 
-      <div className={`balance ${!loggedIn ? "d-none" : ""}`}>
+      <div className={`balance ${!loggedIn ? 'd-none' : ''}`}>
         <span className="label">Balance</span>
-        <span className="value">
-          €
-          {balance.toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
-        </span>
+        <span className="value">€{balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
       </div>
     </div>
   );
-};
+}
 
 export default Header;

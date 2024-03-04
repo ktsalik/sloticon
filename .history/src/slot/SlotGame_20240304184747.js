@@ -189,23 +189,14 @@ class SlotGame {
     if (this.reelsController.reelsActive) {
       if (this.betResponse) {
         this.reelsController.onStopCommandFns.forEach((fn) => fn());
-
-        if (
-          this.reelsController.reels.some(
-            (r) =>
-              (r.rolling === true || r.stopping < r.positions + 1) &&
-              !(r.forceStopped || r.stoppedAutomatically)
-          )
-        ) {
+  
+        if (this.reelsController.reels.some((r) => (r.rolling === true || r.stopping < r.positions + 1) && !(r.forceStopped || r.stoppedAutomatically))) {
           this.soundAssets.reelsRun.pause();
           new Audio(this.soundAssets.reelStop.src).play();
         }
 
         this.reelsController.reels.forEach((r, i) => {
-          if (
-            (r.rolling === true || r.stopping < r.positions + 1) &&
-            !(r.forceStopped || r.stoppedAutomatically)
-          ) {
+          if ((r.rolling === true || r.stopping < r.positions + 1) && !(r.forceStopped || r.stoppedAutomatically)) {
             r.values = this.betResponse.reels[i].slice();
             r.offset = 0;
             r.stopping = r.positions + 1;
@@ -228,8 +219,8 @@ class SlotGame {
         }
       }
     } else {
-      this.socket.emit("bet", {
-        key: localStorage.getItem("key"),
+      this.socket.emit('bet', {
+        key: localStorage.getItem('key'),
         gameId: this.id,
         bet: this.bet,
         coinValue: this.coinValue,
@@ -238,21 +229,21 @@ class SlotGame {
       this.betResponse = null;
       this.reelsController.stopCommandGiven = false;
       this.balance -= Math.round(this.betValue * 100) / 100;
-
+  
       this.reelsController.reels.forEach((r) => {
         r.stoppedAutomatically = false;
         r.forceStopped = false;
         r.roll();
-
+  
         r.onceStop(() => {
           if (!this.reelsController.reelsActive) {
             for (let i = 0; i < this.reelsController.onStopFns.length; i++) {
               const fn = this.reelsController.onStopFns[i];
-
+  
               if (fn.once) {
                 this.reelsController.onStopFns.splice(i--, 1);
               }
-
+              
               fn();
             }
           }
@@ -264,14 +255,14 @@ class SlotGame {
       this.soundAssets.reelsRun.loop = true;
       this.soundAssets.reelsRun.currentTime = 0;
       this.soundAssets.reelsRun.play();
-
+  
       for (let i = 0; i < this.reelsController.onStartFns.length; i++) {
         const fn = this.reelsController.onStartFns[i];
-
+  
         if (fn.once) {
           this.reelsController.onStartFns.splice(i--, 1);
         }
-
+  
         fn();
       }
 
@@ -285,6 +276,7 @@ class SlotGame {
       }
     }
   }
+
 
   onPlay(fn) {
     this.onPlayFns.push(fn);
