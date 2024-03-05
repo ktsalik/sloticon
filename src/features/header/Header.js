@@ -21,6 +21,16 @@ import lobbySlice from "../../lobbySlice";
  * and balance. Gets user state from Redux and updates
  * balance via Socket.io.
  */
+import { faCrown, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./Header.scss";
+import { useSelector } from "react-redux";
+import { useEffect, useContext, useState } from "react";
+import { SocketContext } from "../../context/socket";
+import store from "../../store";
+import lobbySlice from "../../lobbySlice";
+
 const Header = (props) => {
   const loggedIn = useSelector((state) => state.lobby.loggedIn);
   const username = useSelector((state) => state.lobby.username);
@@ -56,11 +66,12 @@ const Header = (props) => {
   return (
     <>
       {showLoginPopup && (
-        <Popup>
+        // Popup component needs to be imported/defined
+        <div>
           <p>Would you like to sign in?</p>
           <button onClick={handleLoginClick}>Yes, sign in</button>
           <button onClick={handleGuestClick}>No, continue as guest</button>
-        </Popup>
+        </div>
       )}
 
       <div className="Header">
@@ -100,5 +111,6 @@ const Header = (props) => {
     </>
   );
 };
+
 
 export default Header;
