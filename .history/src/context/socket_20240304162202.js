@@ -3,8 +3,8 @@ import React from 'react';
 import store from '../store';
 import lobbySlice from "../lobbySlice";
 
-export const socket = io.connect('');
-// export const socket = io.connect('http://localhost:3001');
+export const socket = io.connect('https://slots-now-server.onrender.com');
+// export const socket = io.connect('http://localhost:10000');
 export const SocketContext = React.createContext();
 
 socket.on('connect', () => {
