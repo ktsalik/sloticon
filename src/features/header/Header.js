@@ -28,7 +28,7 @@ const Header = (props) => {
     <div className="Header">
       <div className="brand">
         <FontAwesomeIcon icon={faCrown} size="2x" className="logo"></FontAwesomeIcon>
-        <span className="name">Sloticon</span>
+        <span className="name">Royal Games Social Casino</span>
       </div>
 
       <div className={`menu ${!loggedIn ? 'd-none' : ''}`}>
@@ -45,7 +45,7 @@ const Header = (props) => {
       </div>
 
       <div className={`balance ${!loggedIn ? 'd-none' : ''}`}>
-        <span className="label">Balance</span>
+        <span className="label">Credits</span>
         <span className="value">€{balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
       </div>
     </div>
